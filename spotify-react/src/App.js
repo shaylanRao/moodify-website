@@ -16,14 +16,14 @@ function App() {
     //     let token = urlParams.get('access_token');
     // }
 
-    const [testData, setTestData] = useState({})
+    const [testData, setTestData] = useState([])
 
     useEffect(() => {
         fetch("/time").then(
             res => res.json()
         ).then(
             testData => {
-                setTestData(testData)
+                setTestData(testData["test var"])
                 console.log(testData)
             }
         )
@@ -93,14 +93,16 @@ function App() {
                     <h1 class="font-medium leading-tight text-5xl mt-0 mb-2 text-blue-600">Spotify React</h1>
                 </header>
 
-                <ArtistCards />
+                {/* <ArtistCards /> */}
+                <div>{testData}</div>
 
                 <SearchBar token={token} searchRecentTracks={searchRecentTracks} setSearchKey={setSearchKey} />
 
                 {/* Login and logout function */}
                 <Login token={token} logout={logout} />
 
-                {renderRecentArtists()}
+                {renderRecentAlbums()}
+                
 
             </div>
         </div>
