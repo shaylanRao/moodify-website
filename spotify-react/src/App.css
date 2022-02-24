@@ -1,38 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
 .App {
-  text-align: center;
+    background-color: #282c34;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.input-text {
+    color: green;
+}
+
+.main-page {
+    background-color: #161D31;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.recently-played-sidebar {
+    background-color: #292F45;
+    overflow-wrap: break-word;
+}
+
+.recently-played-heading {
+    content: attr(data-subheading);
+    font-size: 175%;
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0.75;
+    color: whitesmoke;
+}
+
+.moodify-title {
+
+}
+
+.searchbar {
+    justify-content: center;
+}
+
+.spotify-login-button {
+    background-color: #1DB954;
+}
+
+.spotify-logout-button {
+    background-color: grey;
 }

@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route("/time")
 def get_current_time():
     # return{'time': [time.time()]}
-    return {'test var': [calc(5, 4)]}
+    return {'test var': []}
 
 
 if __name__ == "__main__":

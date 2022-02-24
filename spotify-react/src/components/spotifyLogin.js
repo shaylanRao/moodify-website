@@ -8,10 +8,12 @@ export default function Login(props) {
 
     return (
         <div>
-            {!props.token ?
-                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                    to Spotify</a>
-                : <button onClick={props.logout}>Logout</button>}
+            <button>
+                <a className="rounded-full spotify-login-button py-3 px-6"
+                   href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                    <i className="fa fa-spotify"></i>   Login to Spotify
+                </a>
+            </button>
         </div>
 
 

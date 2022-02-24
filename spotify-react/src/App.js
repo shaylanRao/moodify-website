@@ -1,15 +1,17 @@
 import './App.css';
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import Login from './components/spotifyLogin'
-import SearchBar from './components/searchBar';
-import ArtistCards from './components/ArtistCards';
+import List from "./components/recentSongArtist";
+import SearchBar from "./components/searchBar";
+import Login from "./components/spotifyLogin";
+import Logout from "./components/navbar-components/logout";
+import Navbar from "./components/navbar";
 
 
 function App() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
-    const [tracks, setTracks] = useState([])
+    const [recentTracks, setRecentTracks] = useState([])
 
     // const getToken = () => {
     //     let urlParams = new URLSearchParams(window.location.hash.replace("#","?"));
@@ -53,7 +55,7 @@ function App() {
 
     const searchRecentTracks = async (e) => {
         e.preventDefault()
-        const { data } = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+        const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -65,49 +67,91 @@ function App() {
         })
         // console.log(data.items[0].track.album.images[0].url)
         console.log(data.items[0].track)
-        setTracks(data.items)
+        setRecentTracks(data.items)
     }
 
-    const renderRecentAlbums = () => {
-        return tracks.map(track => (
-            <div key={track.track.id}>
-                {track.track.id ? <img width={"50%"} src={track.track.album.images[0].url} alt="" /> : <div>No Image</div>}
-                {track.name}
-            </div>
-        ))
+    // const loadRecentTracks = async (e) => {
+    //     e.preventDefault()
+    //     const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         },
+    //     })
+    //     console.log(data.items[0].track)
+    //     setRecentTracks(data.items)
+    // }
+
+    useEffect(() => {
+        async function fetchAPI() {
+            if (token) {
+                const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                })
+                console.log(data.items[0].track)
+                setRecentTracks(data.items)
+            }
+        }
+
+        fetchAPI()
+
+    }, [token])
+
+    const renderRecentCards = () => {
+        return <List tracks={recentTracks}/>
     }
 
-    const renderRecentArtists = () => {
-        return tracks.map(track => (
-            <div key={track.track.id}>
-                {track.track.id ? <img width={"50%"} src={track.track.artists[0].uri} alt="" /> : <div>No Image</div>}
-                {track.name}
-            </div>
-        ))
-    }
 
     return (
-        <div className="App relative">
-            <div className="App-header">
-                <header class = "fixed top-0 left-0 right-0">            
-                    <h1 class="font-medium leading-tight text-5xl mt-0 mb-2 text-blue-600">Spotify React</h1>
-                </header>
+        <div className="App">
+            {token ?
+                <Navbar/> :
+                ""}
+            <div className="grid grid-flow-col-dense gap-1 flex">
+                {token ?
+                    <div>
+                        <div className="bg-blue-100 col-span-1">
+                            {/*Renders recently played tracks in sidebar when search is pressed (tracks has loaded)*/}
+                            {renderRecentCards()}
+                        </div>
+                    </div>
+                    :
+                    ""
+                }
 
-                {/* <ArtistCards /> */}
-                <div>{testData}</div>
+                <div className="main-page col-span-12 flex h-full w-full">
+                    {token ?
+                        <div>
+                            <br/>
+                            <SearchBar token={token} searchRecentTracks={searchRecentTracks}
+                                       setSearchKey={setSearchKey}/>
+                        </div>
 
-                <SearchBar token={token} searchRecentTracks={searchRecentTracks} setSearchKey={setSearchKey} />
+                        :
 
-                {/* Login and logout function */}
-                <Login token={token} logout={logout} />
 
-                {renderRecentAlbums()}
-                
+                        <div className="moodify-title flex flex-row min-h-screen justify-center items-center">
+                            <div>
+                                <div
+                                    className="font-medium leading-tight text-5xl mt-0 mb-2 text-indigo-500 row-span-1">
+                                    Spotify React
+                                    {/*TODO make grid to separate title to login*/}
+                                </div>
+                                <br/>
+                                <br/>
+                                <div className="">
+                                    <Login/>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
+                    <div>{testData}</div>
+                </div>
             </div>
         </div>
-
-    );
+    )
 }
 
 export default App;
