@@ -1,17 +1,25 @@
 import './App.css';
+import '@progress/kendo-theme-material/dist/all.css'
+import 'hammerjs'
+
 import {useEffect, useState} from "react";
 import axios from "axios";
-import List from "./components/recentSongArtist";
-import SearchBar from "./components/searchBar";
-import Login from "./components/spotifyLogin";
-import Logout from "./components/navbar-components/logout";
-import Navbar from "./components/navbar";
+import Sidebar from "./components/RecentSongArtist";
+import SearchBar from "./components/SearchBar";
+import Login from "./components/SpotifyLogin";
+import Navbar from "./components/Navbar";
+import Line from "./components/MoodGraph";
 
 
 function App() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
+    const [angerData, setAngerData] = useState([])
+    const [fearData, setFearData] = useState([])
+    const [joyData, setJoyData] = useState([])
+    const [sadnessData, setSadnessData] = useState([])
+
 
     // const getToken = () => {
     //     let urlParams = new URLSearchParams(window.location.hash.replace("#","?"));
@@ -20,16 +28,17 @@ function App() {
 
     const [testData, setTestData] = useState([])
 
-    useEffect(() => {
-        fetch("/time").then(
-            res => res.json()
-        ).then(
-            testData => {
-                setTestData(testData["test var"])
-                console.log(testData)
-            }
-        )
-    }, []);
+    // useEffect(() => {
+    //     fetch("/time").then(
+    //         res => res.json()
+    //     ).then(
+    //         testData => {
+    //             setTestData(testData["test var"])
+    //             console.log(testData)
+    //         }
+    //     )
+    // }, []);
+
 
     useEffect(() => {
         const hash = window.location.hash
@@ -82,36 +91,54 @@ function App() {
     // }
 
     useEffect(() => {
-        async function fetchAPI() {
-            if (token) {
-                const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                })
-                console.log(data.items[0].track)
-                setRecentTracks(data.items)
+            async function fetchAPI() {
+                if (token) {
+                    const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    })
+                    console.log(data.items[0].track)
+                    setRecentTracks(data.items)
+
+                    //TODO replace /time with /getPredictions
+
+                    fetch("/getPredictions").then(
+                        res => res.json()
+                    ).then(
+                        pyData => {
+                            setAngerData(pyData["anger"][0])
+                            setFearData(pyData["fear"][0])
+                            setJoyData(pyData["joy"][0])
+                            setSadnessData(pyData["sadness"][0])
+                            console.log(angerData)
+                        }
+                    )
+                }
             }
+
+            fetchAPI()
+
         }
 
-        fetchAPI()
-
-    }, [token])
+        ,
+        [token]
+    )
 
     const renderRecentCards = () => {
-        return <List tracks={recentTracks}/>
+        return <Sidebar tracks={recentTracks}/>
     }
 
 
     return (
         <div className="App">
             {token ?
-                <Navbar/> :
+                <Navbar logout={logout}/> :
                 ""}
             <div className="grid grid-flow-col-dense gap-1 flex">
                 {token ?
                     <div>
-                        <div className="bg-blue-100 col-span-1">
+                        <div className="bg-blue-100">
                             {/*Renders recently played tracks in sidebar when search is pressed (tracks has loaded)*/}
                             {renderRecentCards()}
                         </div>
@@ -126,6 +153,10 @@ function App() {
                             <br/>
                             <SearchBar token={token} searchRecentTracks={searchRecentTracks}
                                        setSearchKey={setSearchKey}/>
+                            <div>
+                                <br/>
+                                <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}/>
+                            </div>
                         </div>
 
                         :

@@ -304,7 +304,7 @@ def classify_data():
 
     # KNR for joy and sadness
     predictor = Prediction(data_to_graph)
-    predictor.drive()
+    return predictor.drive()
 
     # print('sadness')
     # knr_joy = KNeighborRegressor(data_to_graph, "sadness")
@@ -373,4 +373,4 @@ def _main_():
     # graph_one_playlist(max_list)
 
     # get_heatmap()
-    classify_data()
+    return classify_data()
