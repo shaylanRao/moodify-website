@@ -13,6 +13,7 @@ import {
 import * as React from "react";
 import {Loader} from "@progress/kendo-react-indicators";
 import {COLORS} from "../constants";
+import ChartTooltip from "@progress/kendo-react-charts/dist/es/components/Tooltip";
 
 
 //For song list, replace [1,2,3] with songlist
@@ -22,6 +23,17 @@ import {COLORS} from "../constants";
 
 
 export default function Line(props) {
+
+    const renderTooltip = ({point}) => (
+        <span>
+            {point.category}: {Math.round(point.value * 10) / 10}%
+        </span>
+    );
+
+    // const trackNames = props.recentTracks.map(track => (
+    //     track.track.name
+    // ))
+
 
     const pythonData = [
         {
@@ -48,17 +60,16 @@ export default function Line(props) {
 
 
     if (props.anger.length > 1) {
-        console.log("TRUE")
-        console.log(props.anger)
+        console.log("Graphing")
         return (
-            <Chart pannable zoomable style={{height: 350, color: "red"}}>
+            <Chart pannable zoomable style={{height: 350}}>
                 <ChartTitle text="Application status - last 3 months"/>
                 <ChartLegend position="top" orientation="horizontal"/>
                 <ChartValueAxis>
-                    <ChartValueAxisItem title={{text: "Job Positions"}} min={0} max={1}/>
+                    <ChartValueAxisItem title={{text: "Job Positions"}} min={0} max={100}/>
                 </ChartValueAxis>
                 <ChartCategoryAxis>
-                    <ChartCategoryAxisItem categories={Array.from(props.anger.keys())}/>
+                    <ChartCategoryAxisItem visible={false} categories={(props.recentTracks)}/>
                 </ChartCategoryAxis>
                 <ChartSeries>
                     {
@@ -67,7 +78,6 @@ export default function Line(props) {
                             <ChartSeriesItem
                                 key={idx}
                                 type="line"
-                                tooltip={{visible: true}}
                                 data={item.data}
                                 name={item.name}
                                 color={item.color}
@@ -75,6 +85,7 @@ export default function Line(props) {
                         ))
                     }
                 </ChartSeries>
+                <ChartTooltip render={renderTooltip}/>
             </Chart>
         )
     } else {

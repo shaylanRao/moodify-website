@@ -143,10 +143,10 @@ class LinLogReg:
 
     # def classify(user_df):
     #     # Gets the list of tracks from the user
-    #     track_list = user_df['track_id'].tolist()
+    #     recent_track_list = user_df['track_id'].tolist()
     #
     #     # Gets the all the musical features of each song
-    #     track_features = get_all_music_features(track_list)
+    #     track_features = get_all_music_features(recent_track_list)
     #
     #     # standardizes the data
     #     std_data = standardizer(track_features)

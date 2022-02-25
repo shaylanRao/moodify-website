@@ -15,29 +15,16 @@ function App() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
+    const [recentTracksLabels, setRecentTracksLabels] = useState([])
     const [angerData, setAngerData] = useState([])
     const [fearData, setFearData] = useState([])
     const [joyData, setJoyData] = useState([])
     const [sadnessData, setSadnessData] = useState([])
+    const [testData, setTestData] = useState("")
+    const [madePred, setMadePred] = useState(false)
 
-
-    // const getToken = () => {
-    //     let urlParams = new URLSearchParams(window.location.hash.replace("#","?"));
-    //     let token = urlParams.get('access_token');
-    // }
-
-    const [testData, setTestData] = useState([])
-
-    // useEffect(() => {
-    //     fetch("/time").then(
-    //         res => res.json()
-    //     ).then(
-    //         testData => {
-    //             setTestData(testData["test var"])
-    //             console.log(testData)
-    //         }
-    //     )
-    // }, []);
+    const [predictSongUrl, setPredictSongUrl] = useState("")
+    const [predictSongName, setPredictSongName] = useState("")
 
 
     useEffect(() => {
@@ -62,33 +49,43 @@ function App() {
         window.localStorage.removeItem("token")
     }
 
-    const searchRecentTracks = async (e) => {
+    const predictThisSong = async (e) => {
         e.preventDefault()
-        const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+        const {data} = await axios.get("https://api.spotify.com/v1/search", {
             headers: {
                 Authorization: `Bearer ${token}`
             },
             // If search request, then use below, atm just a get recently played
-            // params: {
-            //     q: searchKey,
-            //     type: "artist"
-            //}
+            params: {
+                q: searchKey,
+                type: "track"
+            }
         })
         // console.log(data.items[0].track.album.images[0].url)
-        console.log(data.items[0].track)
-        setRecentTracks(data.items)
+
+        setPredictSongName(data.tracks.items[0].name)
+        setPredictSongUrl(data.tracks.items[0].album.images[0].url)
+
+        fetch(`/postPredictSong`, {
+            'method': 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({trackid: data.tracks.items[0].id})
+        })
+            .then(response => response.json())
+            .catch(error => console.log(error))
+
+        fetch("/getPredictSong", {'method': 'GET'}).then(
+            res => res.json()
+        ).then(
+            pyData => {
+                console.log("SINGLE PRED")
+                console.log(pyData["anger"][0])
+            }
+        )
     }
 
-    // const loadRecentTracks = async (e) => {
-    //     e.preventDefault()
-    //     const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         },
-    //     })
-    //     console.log(data.items[0].track)
-    //     setRecentTracks(data.items)
-    // }
 
     useEffect(() => {
             async function fetchAPI() {
@@ -98,7 +95,6 @@ function App() {
                             Authorization: `Bearer ${token}`
                         },
                     })
-                    console.log(data.items[0].track)
                     setRecentTracks(data.items)
 
                     //TODO replace /time with /getPredictions
@@ -107,11 +103,12 @@ function App() {
                         res => res.json()
                     ).then(
                         pyData => {
+                            setMadePred(true)
                             setAngerData(pyData["anger"][0])
                             setFearData(pyData["fear"][0])
                             setJoyData(pyData["joy"][0])
                             setSadnessData(pyData["sadness"][0])
-                            console.log(angerData)
+                            setRecentTracksLabels(pyData["recent_track_list"][0])
                         }
                     )
                 }
@@ -128,6 +125,13 @@ function App() {
     const renderRecentCards = () => {
         return <Sidebar tracks={recentTracks}/>
     }
+
+
+    // class APIService {
+    //     // Insert an article
+    //     static
+    //
+    // }
 
 
     return (
@@ -150,13 +154,30 @@ function App() {
                 <div className="main-page col-span-12 flex h-full w-full">
                     {token ?
                         <div>
-                            <br/>
-                            <SearchBar token={token} searchRecentTracks={searchRecentTracks}
-                                       setSearchKey={setSearchKey}/>
                             <div>
                                 <br/>
-                                <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}/>
+                                <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}
+                                      recentTracks={recentTracksLabels}/>
                             </div>
+
+                            <br/>
+                            {madePred ?
+                                <div>
+                                    <SearchBar token={token} predictSong={predictThisSong}
+                                               setSearchKey={setSearchKey}/>
+                                    {predictSongName ?
+                                        <div className="text-left">
+                                            <br/>
+                                            <h4>{predictSongName}</h4>
+                                            <img src={predictSongUrl} alt="temp img" width="200" height="200"/>
+                                        </div>
+                                        :
+                                        ""
+                                    }
+                                </div>
+                                :
+                                ""
+                            }
                         </div>
 
                         :
@@ -177,8 +198,6 @@ function App() {
                             </div>
                         </div>
                     }
-
-                    <div>{testData}</div>
                 </div>
             </div>
         </div>

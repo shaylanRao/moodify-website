@@ -2,12 +2,12 @@
 # python server.py        - to run the server file
 
 # python -m pip install --upgrade pip    - for pycharm
-
-from flask import Flask
-from twitter_data.hashtagSearch import _main_
-import numpy as np
+from flask import Flask, request
+from twitter_data.hashtagSearch import _main_, predict_searched_song
 
 app = Flask(__name__)
+
+predict_id = ""
 
 
 @app.route("/time")
@@ -18,7 +18,29 @@ def get_current_time():
 
 @app.route("/getPredictions")
 def get_predictions():
-    anger, fear, joy, sadness = _main_()
+    anger, fear, joy, sadness, track_list = _main_()
+    anger = [element * 100 for element in anger]
+    fear = [element * 100 for element in fear]
+    joy = [element * 100 for element in joy]
+    sadness = [element * 100 for element in sadness]
+
+    return {'anger': [anger], 'fear': [fear], 'joy': [joy], 'sadness': [sadness], 'recent_track_list': [track_list]}
+
+
+@app.route("/postPredictSong", methods=["POST", "GET"], strict_slashes=False)
+def predict_this():
+    global predict_id
+    print("TRACK_ID TO PREDICT")
+    predict_id = request.json['trackid']
+    print(predict_id)
+    return "YES"
+
+
+@app.route("/getPredictSong", methods=["POST", "GET"], strict_slashes=False)
+def get_pred():
+    global predict_id
+    print(predict_id)
+    anger, fear, joy, sadness = predict_searched_song(predict_id)
     return {'anger': [anger], 'fear': [fear], 'joy': [joy], 'sadness': [sadness]}
 
 

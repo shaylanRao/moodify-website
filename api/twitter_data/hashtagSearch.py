@@ -8,7 +8,6 @@ import pandas as pd
 # from IPython.core.display import display
 from numpy import int64
 
-
 from classification.senti_prediciton import Prediction
 from sentiment.lyric_sentiment import get_lyrics_senti
 from sentiment.sentiment_analyser import get_text_senti, COLUMN_HEADINGS
@@ -271,13 +270,18 @@ def get_heatmap():
     label_heatmap(data_to_graph)
 
 
+predictor = Prediction
+
+
 # Classifies the data and uses a predicting model
 def classify_data():
+    global predictor
     data_to_graph = all_s_tweets
     # If a row has all values N/A, anger would contain N/A, this code removes any rows with N/A for all values
     data_to_graph = (data_to_graph[data_to_graph['anger'].notna()])
     # Removes rows which show no emotion
-    data_to_graph = data_to_graph.drop(data_to_graph[(data_to_graph.anger == 0) & (data_to_graph.fear == 0) & (data_to_graph.joy == 0) & (data_to_graph.sadness == 0)].index)
+    data_to_graph = data_to_graph.drop(data_to_graph[(data_to_graph.anger == 0) & (data_to_graph.fear == 0) & (
+                data_to_graph.joy == 0) & (data_to_graph.sadness == 0)].index)
     # Gets the user with the most records
     mode_user_name = data_to_graph['user_name'].value_counts().idxmax()
     # Forms array of same (mode) user data
@@ -300,19 +304,19 @@ def classify_data():
 
     # SVM for joy
     # svm_classify = KernelSVC(data_to_graph, "joy")
-    # svm_classify.drive()
+    # svm_classify.predict_recent_songs()
 
     # KNR for joy and sadness
     predictor = Prediction(data_to_graph)
-    return predictor.drive()
+    return predictor.predict_recent_songs()
 
     # print('sadness')
     # knr_joy = KNeighborRegressor(data_to_graph, "sadness")
-    # knr_joy.drive()
+    # knr_joy.predict_recent_songs()
 
     # print('anger')
     # knr_joy = KNeighborRegressor(data_to_graph, "anger")
-    # knr_joy.drive()
+    # knr_joy.predict_recent_songs()
 
 
 # Gets the longest song song list from all users
@@ -374,3 +378,9 @@ def _main_():
 
     # get_heatmap()
     return classify_data()
+
+
+def predict_searched_song(track_id):
+    global predictor
+    return predictor.predict_this_song(track_id)
+
