@@ -9,6 +9,7 @@ import SearchBar from "./components/SearchBar";
 import Login from "./components/SpotifyLogin";
 import Navbar from "./components/Navbar";
 import Line from "./components/MoodGraph";
+import SearchTrackValues from "./components/SearchTrackValues";
 
 
 function App() {
@@ -16,10 +17,17 @@ function App() {
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
     const [recentTracksLabels, setRecentTracksLabels] = useState([])
+
     const [angerData, setAngerData] = useState([])
     const [fearData, setFearData] = useState([])
     const [joyData, setJoyData] = useState([])
     const [sadnessData, setSadnessData] = useState([])
+
+    const [searchTrackAnger, setSearchTrackAnger] = useState([])
+    const [searchTrackFear, setSearchTrackFear] = useState([])
+    const [searchTrackJoy, setSearchTrackJoy] = useState([])
+    const [searchTrackSadness, setSearchTrackSadness] = useState([])
+
     const [testData, setTestData] = useState("")
     const [madePred, setMadePred] = useState(false)
 
@@ -82,6 +90,10 @@ function App() {
             pyData => {
                 console.log("SINGLE PRED")
                 console.log(pyData["anger"][0])
+                setSearchTrackAnger(pyData["anger"][0])
+                setSearchTrackFear(pyData["fear"][0])
+                setSearchTrackJoy(pyData["joy"][0])
+                setSearchTrackSadness(pyData["sadness"][0])
             }
         )
     }
@@ -126,6 +138,14 @@ function App() {
         return <Sidebar tracks={recentTracks}/>
     }
 
+    const renderSearchValues = () => {
+        return <SearchTrackValues predictSongName={predictSongName}
+                                  predictSongUrl={predictSongUrl}
+                                  anger={searchTrackAnger}
+                                  fear={searchTrackFear}
+                                  joy={searchTrackJoy}
+                                  sadness={searchTrackSadness}/>
+    }
 
     // class APIService {
     //     // Insert an article
@@ -142,7 +162,7 @@ function App() {
             <div className="grid grid-flow-col-dense gap-1 flex">
                 {token ?
                     <div>
-                        <div className="bg-blue-100">
+                        <div className="bg-dark_blue">
                             {/*Renders recently played tracks in sidebar when search is pressed (tracks has loaded)*/}
                             {renderRecentCards()}
                         </div>
@@ -151,10 +171,10 @@ function App() {
                     ""
                 }
 
-                <div className="main-page col-span-12 flex h-full w-full">
+                <div className="main-page col-span-12 flex h-full w-full bg-background">
                     {token ?
                         <div>
-                            <div>
+                            <div className={""}>
                                 <br/>
                                 <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}
                                       recentTracks={recentTracksLabels}/>
@@ -162,18 +182,16 @@ function App() {
 
                             <br/>
                             {madePred ?
-                                <div>
-                                    <SearchBar token={token} predictSong={predictThisSong}
-                                               setSearchKey={setSearchKey}/>
-                                    {predictSongName ?
-                                        <div className="text-left">
-                                            <br/>
-                                            <h4>{predictSongName}</h4>
-                                            <img src={predictSongUrl} alt="temp img" width="200" height="200"/>
-                                        </div>
-                                        :
-                                        ""
-                                    }
+                                <div className={"k-p-lg text-base"}>
+                                    <div className={"k-p-lg border border-blue_purple w-3/6"}>
+                                        <SearchBar token={token} predictSong={predictThisSong}
+                                                   setSearchKey={setSearchKey}/>
+                                        {searchTrackAnger.length !== 0 ?
+                                            renderSearchValues()
+                                            :
+                                            ""
+                                        }
+                                    </div>
                                 </div>
                                 :
                                 ""

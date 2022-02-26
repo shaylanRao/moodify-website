@@ -14,6 +14,7 @@ import * as React from "react";
 import {Loader} from "@progress/kendo-react-indicators";
 import {COLORS} from "../constants";
 import ChartTooltip from "@progress/kendo-react-charts/dist/es/components/Tooltip";
+import ChartArea from "@progress/kendo-react-charts/dist/es/components/ChartArea";
 
 
 //For song list, replace [1,2,3] with songlist
@@ -57,16 +58,15 @@ export default function Line(props) {
             color: COLORS.sadness,
         },
     ];
-
-
     if (props.anger.length > 1) {
         console.log("Graphing")
         return (
             <Chart pannable zoomable style={{height: 350}}>
-                <ChartTitle text="Application status - last 3 months"/>
+                <ChartArea background="white" margin={20} />
+                <ChartTitle color = "black" text="Recent Predicted Mood"/>
                 <ChartLegend position="top" orientation="horizontal"/>
                 <ChartValueAxis>
-                    <ChartValueAxisItem title={{text: "Job Positions"}} min={0} max={100}/>
+                    <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0} max={100}/>
                 </ChartValueAxis>
                 <ChartCategoryAxis>
                     <ChartCategoryAxisItem visible={false} categories={(props.recentTracks)}/>
