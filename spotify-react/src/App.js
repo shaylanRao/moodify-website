@@ -154,7 +154,7 @@ function App() {
         const maxEmotion = Math.max(...moodData)
         console.log("MAXE")
         console.log(moodData)
-        const indexMaxEmotion = moodData.indexOf(maxEmotion)
+        const indexMaxEmotion = (moodData.reverse()).indexOf(maxEmotion)
         const topTrackName = recentTracksLabels[indexMaxEmotion]
 
         return (
@@ -199,18 +199,23 @@ function App() {
                                         <div className={"k-p-lg w-2/6"}>
                                             {renderTopTrack(sadnessData, "sadness")}
                                         </div>
+                                        <div className={"k-p-lg w-2/6"}>
+                                            {renderTopTrack(angerData, "anger")}
+                                        </div>
                                     </div>
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <div className={"k-p-lg border border-blue_purple w-3/6"}>
-                                        <SearchBar token={token} predictSong={predictThisSong}
-                                                   setSearchKey={setSearchKey}/>
-                                        {searchTrackAnger.length !== 0 ?
-                                            renderSearchValues()
-                                            :
-                                            ""
-                                        }
+                                    <div className={"flex justify-center"}>
+                                        <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
+                                            <SearchBar token={token} predictSong={predictThisSong}
+                                                       setSearchKey={setSearchKey}/>
+                                            {searchTrackAnger.length !== 0 ?
+                                                renderSearchValues()
+                                                :
+                                                ""
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                                 :
