@@ -46,7 +46,7 @@ export default function SearchGraph(props) {
     ];
 
     return (
-        <Chart pannable zoomable style={{height: 200, width: 400}}>
+        <Chart pannable zoomable style={{height: 200, width: 300}}>
             <ChartValueAxis>
                 <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0} max={100}/>
             </ChartValueAxis>

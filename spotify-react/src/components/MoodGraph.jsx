@@ -63,7 +63,7 @@ export default function Line(props) {
         console.log("Graphing")
         return (
             <Chart pannable zoomable style={{height: 350}}>
-                <ChartArea background="white" margin={20} />
+                <ChartArea background="white" margin={20} border={{color: "#7466F0", width: 3}}/>
                 <ChartTitle color = "black" text="Recent Predicted Mood"/>
                 <ChartLegend position="top" orientation="horizontal"/>
                 <ChartValueAxis>

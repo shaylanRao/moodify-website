@@ -5,11 +5,12 @@ import 'hammerjs'
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Sidebar from "./components/RecentSongArtist";
-import SearchBar from "./components/SearchBar";
 import Login from "./components/SpotifyLogin";
 import Navbar from "./components/Navbar";
 import Line from "./components/MoodGraph";
 import SearchTrackValues from "./components/SearchTrackValues";
+import TopSongCard from "./components/TopSong";
+import SearchBar from "./components/SearchBar";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 
     const [predictSongUrl, setPredictSongUrl] = useState("")
     const [predictSongName, setPredictSongName] = useState("")
+    const [predictSongArtist, setPredictSongArtist] = useState("")
 
 
     useEffect(() => {
@@ -71,6 +73,7 @@ function App() {
         // console.log(data.items[0].track.album.images[0].url)
 
         setPredictSongName(data.tracks.items[0].name)
+        setPredictSongArtist(data.tracks.items[0].artists[0].name)
         setPredictSongUrl(data.tracks.items[0].album.images[0].url)
 
         fetch(`/postPredictSong`, {
@@ -120,7 +123,6 @@ function App() {
                             setJoyData(pyData["joy"][0])
                             setSadnessData(pyData["sadness"][0])
                             setRecentTracksLabels(pyData["recent_track_list"][0])
-                            renderRecentCards()
                         }
                     )
                 }
@@ -140,6 +142,7 @@ function App() {
 
     const renderSearchValues = () => {
         return (<SearchTrackValues predictSongName={predictSongName}
+                                   predictSongArtist={predictSongArtist}
                                    predictSongUrl={predictSongUrl}
                                    anger={searchTrackAnger}
                                    fear={searchTrackFear}
@@ -147,11 +150,17 @@ function App() {
                                    sadness={searchTrackSadness}/>)
     }
 
-    // class APIService {
-    //     // Insert an article
-    //     static
-    //
-    // }
+    const renderTopTrack = (moodData, type) => {
+        const maxEmotion = Math.max(...moodData)
+        console.log("MAXE")
+        console.log(moodData)
+        const indexMaxEmotion = moodData.indexOf(maxEmotion)
+        const topTrackName = recentTracksLabels[indexMaxEmotion]
+
+        return (
+            <TopSongCard maxEmotion={maxEmotion} topTrackName={topTrackName} emotion={type}/>
+        )
+    }
 
 
     return (
@@ -173,8 +182,8 @@ function App() {
 
                 <div className="main-page col-span-12 flex h-full w-full bg-background">
                     {token ?
-                        <div>
-                            <div className={""}>
+                        <div className={""}>
+                            <div className={"justify-center"}>
                                 <br/>
                                 <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}
                                       recentTracks={recentTracksLabels}/>
@@ -183,6 +192,17 @@ function App() {
                             <br/>
                             {madePred ?
                                 <div className={"k-p-lg text-base"}>
+                                    <div className={"flex justify-center"}>
+                                        <div className={"k-p-lg w-2/6"}>
+                                            {renderTopTrack(joyData, "joy")}
+                                        </div>
+                                        <div className={"k-p-lg w-2/6"}>
+                                            {renderTopTrack(sadnessData, "sadness")}
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <br/>
                                     <div className={"k-p-lg border border-blue_purple w-3/6"}>
                                         <SearchBar token={token} predictSong={predictThisSong}
                                                    setSearchKey={setSearchKey}/>
@@ -204,7 +224,7 @@ function App() {
                         <div className="moodify-title flex flex-row min-h-screen justify-center items-center">
                             <div>
                                 <div
-                                    className="font-medium leading-tight text-5xl mt-0 mb-2 text-indigo-500 row-span-1">
+                                    className="font-medium leading-tight text-5xl mt-0 mb-2 text-blue_purple row-span-1">
                                     Spotify React
                                     {/*TODO make grid to separate title to login*/}
                                 </div>

@@ -2,10 +2,9 @@ import React from 'react';
 
 export default function Sidebar(props) {
     return (
-        <div className="recently-played-sidebar w-auto grow h-full shadow-md bg-white px-1 flex">
+        <div className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex">
             <ul className="relative">
-                <div className="recently-played-heading text-left">Recently Played</div>
-                <br/>
+                <div className="recently-played-heading text-left px-3 py-5">Recently Played</div>
                 {props.tracks.map(track => (
                     <li className="recently-played-card" key={track.track.id}>
                         <a className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
