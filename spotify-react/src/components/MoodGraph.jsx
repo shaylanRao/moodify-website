@@ -58,6 +58,7 @@ export default function Line(props) {
             color: COLORS.sadness,
         },
     ];
+
     if (props.anger.length > 1) {
         console.log("Graphing")
         return (

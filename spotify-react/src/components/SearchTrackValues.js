@@ -1,4 +1,5 @@
 import React from "react";
+import SearchGraph from "./SearchMoodGraph";
 
 export default function SearchTrackValues(props) {
 
@@ -7,10 +8,10 @@ export default function SearchTrackValues(props) {
             <br/>
             <h4>{props.predictSongName}</h4>
             <img src={props.predictSongUrl} alt="temp img" width="200" height="200"/>
-            <div>anger : {props.anger}</div>
-            <div>fear : {props.fear}</div>
-            <div>joy : {props.joy}</div>
-            <div>sadness : {props.sadness}</div>
+            <SearchGraph anger={props.anger}
+                         fear={props.fear}
+                         joy={props.joy}
+                         sadness={props.sadness}/>
         </div>
     )
 }

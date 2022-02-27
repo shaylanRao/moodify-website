@@ -28,7 +28,6 @@ function App() {
     const [searchTrackJoy, setSearchTrackJoy] = useState([])
     const [searchTrackSadness, setSearchTrackSadness] = useState([])
 
-    const [testData, setTestData] = useState("")
     const [madePred, setMadePred] = useState(false)
 
     const [predictSongUrl, setPredictSongUrl] = useState("")
@@ -121,6 +120,7 @@ function App() {
                             setJoyData(pyData["joy"][0])
                             setSadnessData(pyData["sadness"][0])
                             setRecentTracksLabels(pyData["recent_track_list"][0])
+                            renderRecentCards()
                         }
                     )
                 }
@@ -139,12 +139,12 @@ function App() {
     }
 
     const renderSearchValues = () => {
-        return <SearchTrackValues predictSongName={predictSongName}
-                                  predictSongUrl={predictSongUrl}
-                                  anger={searchTrackAnger}
-                                  fear={searchTrackFear}
-                                  joy={searchTrackJoy}
-                                  sadness={searchTrackSadness}/>
+        return (<SearchTrackValues predictSongName={predictSongName}
+                                   predictSongUrl={predictSongUrl}
+                                   anger={searchTrackAnger}
+                                   fear={searchTrackFear}
+                                   joy={searchTrackJoy}
+                                   sadness={searchTrackSadness}/>)
     }
 
     // class APIService {

@@ -41,6 +41,10 @@ def get_pred():
     global predict_id
     print(predict_id)
     anger, fear, joy, sadness = predict_searched_song(predict_id)
+    anger = [element * 100 for element in anger]
+    fear = [element * 100 for element in fear]
+    joy = [element * 100 for element in joy]
+    sadness = [element * 100 for element in sadness]
     return {'anger': [anger], 'fear': [fear], 'joy': [joy], 'sadness': [sadness]}
 
 
