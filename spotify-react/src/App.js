@@ -146,12 +146,15 @@ function App() {
 
     const renderTopTrack = (moodData, type) => {
         //Need to do this as reverse changes the original variable
-        const tempArr = recentTracks
-        tempArr.slice().reverse()
+        const tempArr = recentTracks.slice().reverse()
+        // tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...moodData)
+        console.log(maxEmotion)
         const indexMaxEmotion = (moodData).indexOf(maxEmotion)
+        console.log(indexMaxEmotion)
         const topTrack = (tempArr)[indexMaxEmotion]
+        console.log(topTrack)
 
         if (indexMaxEmotion === -1) {
             return <div>Loading...</div>

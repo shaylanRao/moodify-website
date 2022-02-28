@@ -7,7 +7,7 @@ import {
     ChartSeriesItem,
     ChartTitle,
     ChartValueAxis,
-    ChartValueAxisItem,
+    ChartValueAxisItem, ChartXAxis,
 } from "@progress/kendo-react-charts";
 
 import * as React from "react";
@@ -66,11 +66,12 @@ export default function Line(props) {
                 <ChartTitle color = "black" text="Recent Predicted Mood"/>
                 <ChartLegend position="top" orientation="horizontal"/>
                 <ChartValueAxis>
-                    <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0} max={100}/>
+                    <ChartValueAxisItem title={{text: "Emotional Intensity (%)"}} min={0}/>
                 </ChartValueAxis>
                 <ChartCategoryAxis>
-                    <ChartCategoryAxisItem visible={false} categories={props.recentTracks.slice().reverse()}/>
+                    <ChartCategoryAxisItem title={"Title"} visible={false} categories={props.recentTracks.slice().reverse()}/>
                 </ChartCategoryAxis>
+                {/*<ChartXAxis title={{text: "Most recent ->"}}/>*/}
                 <ChartSeries>
                     {
                         //TODO change to loading icon
