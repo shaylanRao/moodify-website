@@ -1,5 +1,6 @@
 import unittest
-from sentiment_analyser import *
+
+from sentiment.sentiment_analyser import calc
 
 
 class TestSentiAnalyser(unittest.TestCase):
@@ -8,8 +9,13 @@ class TestSentiAnalyser(unittest.TestCase):
         result = calc(10, 5)
         self.assertEqual(result, 15)
 
-    def test_get_text_senti(self):
-        pass
+
+class TestLyricSentiment(unittest.TestCase):
+
+    def test_sample(self):
+        result = calc(10, 5)
+        self.assertEqual(result, 15)
+
 
 if __name__ == '__main__':
     unittest.main()

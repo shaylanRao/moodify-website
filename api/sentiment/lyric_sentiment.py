@@ -28,6 +28,6 @@ def clean_name(name):
     name = name.replace(" ", "-")
     name = name.replace("'", "")
     name = re.sub("[\(\[].*?[\)\]]", "", name)
-    name = re.sub(r'-$','', name)
+    name = re.sub(r'-$', '', name)
     name = unidecode.unidecode(name)
     return name.lower()

@@ -150,11 +150,8 @@ function App() {
         // tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...moodData)
-        console.log(maxEmotion)
         const indexMaxEmotion = (moodData).indexOf(maxEmotion)
-        console.log(indexMaxEmotion)
         const topTrack = (tempArr)[indexMaxEmotion]
-        console.log(topTrack)
 
         if (indexMaxEmotion === -1) {
             return <div>Loading...</div>

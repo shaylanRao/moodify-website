@@ -47,10 +47,10 @@ recent_s_tweets = tweepy.Cursor(api.search_tweets, q=CHOICE, result_type='recent
 def get_trackid_from_urls(urls):
     try:
         url = urls[0]['expanded_url']
-    except IndexError:
+    except (IndexError, KeyError):
         url = ""
 
-    if url[0:31] == "https://open.spotify.com/track/":
+    if url[0:31] == "https://open.spotify.com/track/" and len(url) == 100:
         url = (url[31:53])
         return url
 
@@ -73,14 +73,19 @@ def get_user_s_tweets(screen_name):
 
 # Cleans text data - passed as string
 def clean_text(message):
-    # Removes space, flattens text
-    tweet_text = message.replace('\n', ' ')
+    try:
+        # Removes space, flattens text
+        tweet_text = message.replace('\n', ' ')
 
-    # Removes urls
-    tweet_text = re.sub(r'http\S+', '', tweet_text)
+        # Removes urls
+        tweet_text = re.sub(r'http\S+', '', tweet_text)
 
-    # Removes any 'special' characters
-    tweet_text = re.sub("[^0-9a-zA-Z{} ]+".format(punctuation), "", tweet_text)
+        # Removes any 'special' characters
+        tweet_text = re.sub("[^0-9a-zA-Z{} ]+".format(punctuation), "", tweet_text)
+    except AttributeError:
+        print("ATTRIBUTE ERROR in clean_text")
+        return ""
+
     return tweet_text
 
 
@@ -101,7 +106,7 @@ def get_size_of_search(tweet_search_items):
     return counter
 
 
-# Function for counting number of elements
+# Function for counting number of elements, solves bug - unable to do for each for some object types
 def count_iterable(i):
     return sum(1 for _ in i)
 
