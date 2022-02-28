@@ -69,7 +69,7 @@ export default function Line(props) {
                     <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0} max={100}/>
                 </ChartValueAxis>
                 <ChartCategoryAxis>
-                    <ChartCategoryAxisItem visible={false} categories={props.recentTracks}/>
+                    <ChartCategoryAxisItem visible={false} categories={props.recentTracks.slice().reverse()}/>
                 </ChartCategoryAxis>
                 <ChartSeries>
                     {

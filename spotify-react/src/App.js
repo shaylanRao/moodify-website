@@ -145,10 +145,13 @@ function App() {
     }
 
     const renderTopTrack = (moodData, type) => {
+        //Need to do this as reverse changes the original variable
+        const tempArr = recentTracks
+        tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...moodData)
         const indexMaxEmotion = (moodData).indexOf(maxEmotion)
-        const topTrack = (recentTracks.reverse())[indexMaxEmotion]
+        const topTrack = (tempArr)[indexMaxEmotion]
 
         if (indexMaxEmotion === -1) {
             return <div>Loading...</div>
@@ -182,7 +185,7 @@ function App() {
                             <div className={"justify-center"}>
                                 <br/>
                                 <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}
-                                      recentTracks={recentTracks.reverse().map(track => (track.track.name))}/>
+                                      recentTracks={recentTracks.map(track => (track.track.name))}/>
                             </div>
 
                             <br/>

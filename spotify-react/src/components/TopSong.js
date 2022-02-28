@@ -2,6 +2,13 @@ import React from "react";
 
 export default function TopSongCard(props) {
 
+
+    function displayDate(dateStr) {
+        const date = new Date(dateStr);
+        return (date.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear() + " - " + date.toTimeString().split(' ')[0])
+    }
+
+
     return (
         <div>
             <div className="flex items-center">
@@ -19,7 +26,7 @@ export default function TopSongCard(props) {
                                 The <span className="text-joy">happiest</span> song recently has been, <br/> <span
                                 className={"text-white font-bold italic"}> {props.topTrack.track.name} </span>
                                 <br/>
-                                {props.topTrack.played_at}
+                                <span className={"font-light"}>{displayDate(props.topTrack.played_at)}</span>
                             </p>
                         </div>
                     </div>
@@ -38,6 +45,8 @@ export default function TopSongCard(props) {
                                 <p className="text-gray-200 text-base mb-4">
                                     The <span className="text-sadness">saddest</span> song recently has been, <br/>
                                     <span className={"text-white font-bold italic"}> {props.topTrack.track.name} </span>
+                                    <br/>
+                                    <span className={"font-light"}>{displayDate(props.topTrack.played_at)}</span>
                                 </p>
                             </div>
                         </div>
@@ -56,6 +65,8 @@ export default function TopSongCard(props) {
                                 <p className="text-gray-200 text-base mb-4">
                                     The <span className="text-anger">angriest</span> song recently has been, <br/>
                                     <span className={"text-white font-bold italic"}> {props.topTrack.track.name} </span>
+                                    <br/>
+                                    <span className={"font-light"}>{displayDate(props.topTrack.played_at)}</span>
                                 </p>
                             </div>
                         </div>
