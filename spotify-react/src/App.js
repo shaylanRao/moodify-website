@@ -9,8 +9,8 @@ import Login from "./components/SpotifyLogin";
 import Navbar from "./components/Navbar";
 import Line from "./components/MoodGraph";
 import SearchTrackValues from "./components/SearchTrackValues";
-import TopSongCard from "./components/TopSong";
 import SearchBar from "./components/SearchBar";
+import TopSongCard from "./components/TopSong";
 
 
 function App() {
@@ -108,17 +108,15 @@ function App() {
                     })
                     setRecentTracks(data.items)
 
-                    //TODO replace /time with /getPredictions
-
                     fetch("/getPredictions").then(
                         res => res.json()
                     ).then(
                         pyData => {
-                            setMadePred(true)
                             setAngerData(pyData["anger"][0])
                             setFearData(pyData["fear"][0])
                             setJoyData(pyData["joy"][0])
                             setSadnessData(pyData["sadness"][0])
+                            setMadePred(true)
                         }
                     )
                 }
@@ -133,7 +131,6 @@ function App() {
     )
 
     const renderRecentCards = () => {
-        // console.log(recentTracks.reverse().map(track => (track.track.name)))
         return <Sidebar tracks={recentTracks}/>
     }
 
@@ -148,17 +145,19 @@ function App() {
     }
 
     const renderTopTrack = (moodData, type) => {
+
         const maxEmotion = Math.max(...moodData)
         const indexMaxEmotion = (moodData).indexOf(maxEmotion)
         const topTrack = (recentTracks.reverse())[indexMaxEmotion]
-        console.log(topTrack)
-        // const trackImageUrl =
 
-        return (
-            <TopSongCard maxEmotion={maxEmotion} topTrack={topTrack} emotion={type}/>
-        )
+        if (indexMaxEmotion === -1) {
+            return <div>Loading...</div>
+        } else {
+            return (
+                <TopSongCard maxEmotion={maxEmotion} topTrack={topTrack} emotion={type}/>
+            )
+        }
     }
-
 
     return (
         <div className="App">
