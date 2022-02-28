@@ -17,7 +17,6 @@ function App() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
-    const [recentTracksLabels, setRecentTracksLabels] = useState([])
 
     const [angerData, setAngerData] = useState([])
     const [fearData, setFearData] = useState([])
@@ -90,8 +89,6 @@ function App() {
             res => res.json()
         ).then(
             pyData => {
-                console.log("SINGLE PRED")
-                console.log(pyData["anger"][0])
                 setSearchTrackAnger(pyData["anger"][0])
                 setSearchTrackFear(pyData["fear"][0])
                 setSearchTrackJoy(pyData["joy"][0])
@@ -104,7 +101,7 @@ function App() {
     useEffect(() => {
             async function fetchAPI() {
                 if (token) {
-                    const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played", {
+                    const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=50", {
                         headers: {
                             Authorization: `Bearer ${token}`
                         },
@@ -122,7 +119,6 @@ function App() {
                             setFearData(pyData["fear"][0])
                             setJoyData(pyData["joy"][0])
                             setSadnessData(pyData["sadness"][0])
-                            setRecentTracksLabels(pyData["recent_track_list"][0])
                         }
                     )
                 }
@@ -137,6 +133,7 @@ function App() {
     )
 
     const renderRecentCards = () => {
+        // console.log(recentTracks.reverse().map(track => (track.track.name)))
         return <Sidebar tracks={recentTracks}/>
     }
 
@@ -152,13 +149,13 @@ function App() {
 
     const renderTopTrack = (moodData, type) => {
         const maxEmotion = Math.max(...moodData)
-        console.log("MAXE")
-        console.log(moodData)
-        const indexMaxEmotion = (moodData.reverse()).indexOf(maxEmotion)
-        const topTrackName = recentTracksLabels[indexMaxEmotion]
+        const indexMaxEmotion = (moodData).indexOf(maxEmotion)
+        const topTrack = (recentTracks.reverse())[indexMaxEmotion]
+        console.log(topTrack)
+        // const trackImageUrl =
 
         return (
-            <TopSongCard maxEmotion={maxEmotion} topTrackName={topTrackName} emotion={type}/>
+            <TopSongCard maxEmotion={maxEmotion} topTrack={topTrack} emotion={type}/>
         )
     }
 
@@ -186,7 +183,7 @@ function App() {
                             <div className={"justify-center"}>
                                 <br/>
                                 <Line anger={angerData} fear={fearData} joy={joyData} sadness={sadnessData}
-                                      recentTracks={recentTracksLabels}/>
+                                      recentTracks={recentTracks.reverse().map(track => (track.track.name))}/>
                             </div>
 
                             <br/>
@@ -230,8 +227,7 @@ function App() {
                             <div>
                                 <div
                                     className="font-medium leading-tight text-5xl mt-0 mb-2 text-blue_purple row-span-1">
-                                    Spotify React
-                                    {/*TODO make grid to separate title to login*/}
+                                    Moodify
                                 </div>
                                 <br/>
                                 <br/>

@@ -6,7 +6,9 @@ from spotipy_section.graphPlaylist import get_song_list_ids, get_all_music_featu
     get_artist_song_name
 
 # recent_track_list = get_song_list_ids('7d6WFDrKCCz4veVu0p7PVt')
-song_name, recent_track_list = get_recently_played()
+
+# Only runs once when server starts, needs to be updated when login/logout
+# song_name, recent_track_list = get_recently_played()
 
 
 # An object containing the model, scalar and pca used to fit the specified emotion
@@ -17,7 +19,7 @@ class EmotionModel:
         self.model, self.scalar, self.pca = DecisionTree(data_to_graph, emotion).drive()
 
     # Makes predictions for the playlist chosen
-    def predict(self):
+    def predict(self, recent_track_list):
         return self.model.predict(get_playlist_data(self, recent_track_list))
 
     def predict_song(self, track_id):
@@ -52,14 +54,14 @@ class Prediction:
     song_sadness_pred = []
 
     def predict_recent_songs(self):
-        global recent_track_list, song_name
-        self.anger_pred = self.anger.predict()[::-1]
-        self.fear_pred = self.fear.predict()[::-1]
-        self.joy_pred = self.joy.predict()[::-1]
-        self.sadness_pred = self.sadness.predict()[::-1]
-        song_name = song_name[::-1]
+        recent_track_list = get_recently_played()
+
+        self.anger_pred = self.anger.predict(recent_track_list)[::-1]
+        self.fear_pred = (self.fear.predict(recent_track_list))[::-1]
+        self.joy_pred = self.joy.predict(recent_track_list)[::-1]
+        self.sadness_pred = self.sadness.predict(recent_track_list)[::-1]
         # self.graph()
-        return self.anger_pred.tolist(), self.fear_pred.tolist(), self.joy_pred.tolist(), self.sadness_pred.tolist(), song_name
+        return self.anger_pred.tolist(), self.fear_pred.tolist(), self.joy_pred.tolist(), self.sadness_pred.tolist()
 
     def predict_this_song(self, track_id):
         self.song_anger_pred = self.anger.predict_song(track_id)
@@ -70,6 +72,7 @@ class Prediction:
 
     def graph(self):
         # TODO clean up limit of graph x axis
+        recent_track_list = ["FIll this in to produce matplotlib graph"]
         x = range(1, len(recent_track_list) + 1)
         j, f, a, s = map(list, zip(*sorted(zip(self.joy_pred, self.fear_pred, self.anger_pred, self.sadness_pred))))
         fig = plt.figure()

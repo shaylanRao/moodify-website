@@ -143,7 +143,6 @@ def graph_one_playlist(song_list_graph_one, label):
 def get_recently_played():
     results = sp.current_user_recently_played(limit=50)
     track_ids = []
-    song_names = []
 
     for idx, item in enumerate(results['items']):
         # track = item['track']
@@ -152,11 +151,9 @@ def get_recently_played():
         # print(idx, item['track']['uri'], " – ", track['name'])
         # print(time)
         song_id = item['track']['uri'].split(":")
-        song_name = item['track']['name']
-        song_names.append(song_name)
         track_ids.append(song_id[2])
 
-    return song_names, track_ids
+    return track_ids
 
 
 # -----------------------------------------------------------------------------

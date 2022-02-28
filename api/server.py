@@ -18,13 +18,13 @@ def get_current_time():
 
 @app.route("/getPredictions")
 def get_predictions():
-    anger, fear, joy, sadness, track_list = _main_()
+    anger, fear, joy, sadness = _main_()
     anger = [element * 100 for element in anger]
     fear = [element * 100 for element in fear]
     joy = [element * 100 for element in joy]
     sadness = [element * 100 for element in sadness]
 
-    return {'anger': [anger], 'fear': [fear], 'joy': [joy], 'sadness': [sadness], 'recent_track_list': [track_list]}
+    return {'anger': [anger], 'fear': [fear], 'joy': [joy], 'sadness': [sadness]}
 
 
 @app.route("/postPredictSong", methods=["POST", "GET"], strict_slashes=False)

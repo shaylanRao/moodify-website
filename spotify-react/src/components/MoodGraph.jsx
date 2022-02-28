@@ -60,7 +60,6 @@ export default function Line(props) {
     ];
 
     if (props.anger.length > 1) {
-        console.log("Graphing")
         return (
             <Chart pannable zoomable style={{height: 350}}>
                 <ChartArea background="white" margin={20} border={{color: "#7466F0", width: 3}}/>
@@ -70,7 +69,7 @@ export default function Line(props) {
                     <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0} max={100}/>
                 </ChartValueAxis>
                 <ChartCategoryAxis>
-                    <ChartCategoryAxisItem visible={false} categories={(props.recentTracks)}/>
+                    <ChartCategoryAxisItem visible={false} categories={props.recentTracks}/>
                 </ChartCategoryAxis>
                 <ChartSeries>
                     {
@@ -91,8 +90,10 @@ export default function Line(props) {
         )
     } else {
         return (
-            <div>
+            <div className={""}>
                 <Loader size="large" type={"infinite-spinner"}/>
+                <h1 className={"text-4xl pt-8"}>Training</h1>
+                <b className={"text-xs font-light"}>This may take up to 2 minutes</b>
             </div>
         );
     }
