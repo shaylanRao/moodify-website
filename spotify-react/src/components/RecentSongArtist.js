@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Sidebar(props) {
-    function limmitName(str) {
+function limmitName(str) {
         if (str.length > 35) {
             return (str.substring(0, 35) + "...")
         }

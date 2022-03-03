@@ -11,12 +11,15 @@ import Line from "./components/MoodGraph";
 import SearchTrackValues from "./components/SearchTrackValues";
 import SearchBar from "./components/SearchBar";
 import TopSongCard from "./components/TopSong";
+import PlaylistButton from "./components/PlaylistButton";
 
 
 function App() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
+    const [playlistEmotion, setPlaylistEmotion] = useState("")
+    const [updatePlaylistId, setUpdatePlaylistId] = useState("")
 
     const [angerData, setAngerData] = useState([])
     const [fearData, setFearData] = useState([])
@@ -69,7 +72,6 @@ function App() {
                 type: "track"
             }
         })
-        // console.log(data.items[0].track.album.images[0].url)
 
         setPredictSongName(data.tracks.items[0].name)
         setPredictSongArtist(data.tracks.items[0].artists[0].name)
@@ -95,6 +97,75 @@ function App() {
                 setSearchTrackSadness(pyData["sadness"][0])
             }
         )
+    }
+
+    const updatePlaylist = async (e) => {
+        e.preventDefault()
+        //get playlist id
+        await getPlaylistId()
+
+        //add new data to playlist
+    }
+
+    const getPlaylistId = async () => {
+        const {data} = await axios.get("https://api.spotify.com/v1/me/playlists?limit=10", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        const playlists = (data.items)
+        const reqPlaylist = playlists.filter(playlist => playlist.name === `Moodify ${playlistEmotion}`);
+
+        //Both paths lead to the same add tracks function without having sync problems
+        if (reqPlaylist.length === 0) {
+            (createPlaylist())
+            //Need delay for search to be updated, otherwise would run twice as search misses new made playlist
+            //recursion does not work as return time is not waited for and returns undefined
+        } else {
+            // setUpdatePlaylistId(reqPlaylist[0].id)
+            addTracksToPlaylist(reqPlaylist[0].id)
+        }
+    }
+
+
+    const createPlaylist = () => {
+        fetch(`https://api.spotify.com/v1/me/playlists`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name: `Moodify ${playlistEmotion}`,
+                description: "New playlist description",
+                public: false
+            })
+        }).then(response => response.json()).then(jsonResponse => {
+            addTracksToPlaylist(jsonResponse.id)
+        });
+    }
+
+    const addTracksToPlaylist = (playlistId) => {
+        console.log("+ music function")
+        console.log(playlistId)
+        console.log(playlistEmotion)
+
+        //TODO Get top 10 tracks for emotion
+
+        // fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         "Authorization": `Bearer ${token}`
+        //     },
+        //     body: JSON.stringify({
+        //         name: `Moodify ${playlistEmotion}`,
+        //         description: "New playlist description",
+        //         public: false
+        //     })
+        // }).then(response => response.json()).then(jsonResponse => {
+        //     addTracksToPlaylist(jsonResponse.id)
+        // });
     }
 
 
@@ -191,7 +262,7 @@ function App() {
 
                             <br/>
                             {madePred ?
-                                <div className={"k-p-lg text-base"}>
+                                <div className={"k-p-lg text-base py-5"}>
                                     <div className={"flex justify-center"}>
                                         <div className={"k-p-lg w-2/6"}>
                                             {renderTopTrack(joyData, "joy")}
@@ -203,10 +274,8 @@ function App() {
                                             {renderTopTrack(angerData, "anger")}
                                         </div>
                                     </div>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <div className={"flex justify-center"}>
+
+                                    <div className={"flex justify-center py-10"}>
                                         <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
                                             <SearchBar token={token} predictSong={predictThisSong}
                                                        setSearchKey={setSearchKey}/>
@@ -215,6 +284,12 @@ function App() {
                                                 :
                                                 ""
                                             }
+                                        </div>
+                                    </div>
+                                    <div className={"flex justify-center py-5"}>
+                                        <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
+                                            <PlaylistButton token={token} testingFunction={updatePlaylist}
+                                                            setPlaylistEmotion={setPlaylistEmotion}/>
                                         </div>
                                     </div>
                                 </div>

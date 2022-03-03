@@ -85,5 +85,5 @@ class Prediction:
         plt.ylim(0, 1)
         plt.show()
 
-    def verbal_classifier(self):
+    def get_top_ten(self):
         pass
