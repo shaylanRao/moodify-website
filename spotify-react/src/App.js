@@ -5,21 +5,23 @@ import 'hammerjs'
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Sidebar from "./components/RecentSongArtist";
-import Login from "./components/SpotifyLogin";
+import SpotifyLogin from "./components/SpotifyLogin";
 import Navbar from "./components/Navbar";
 import Line from "./components/MoodGraph";
 import SearchTrackValues from "./components/SearchTrackValues";
 import SearchBar from "./components/SearchBar";
 import TopSongCard from "./components/TopSong";
 import PlaylistButton from "./components/PlaylistButton";
+import TwitterLogin from "./components/TwitterLogin";
 
 
 function App() {
-    const [token, setToken] = useState("")
+    const [spotifyToken, setSpotifyToken] = useState("")
+    const [twitterToken, setTwitterToken] = useState("")
+
     const [searchKey, setSearchKey] = useState("")
     const [recentTracks, setRecentTracks] = useState([])
     const [playlistEmotion, setPlaylistEmotion] = useState("")
-    const [updatePlaylistId, setUpdatePlaylistId] = useState("")
 
     const [angerData, setAngerData] = useState([])
     const [fearData, setFearData] = useState([])
@@ -40,7 +42,7 @@ function App() {
 
     useEffect(() => {
         const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
+        let token = window.localStorage.getItem("spotify_token")
 
         // getToken()
 
@@ -48,23 +50,25 @@ function App() {
             token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
 
             window.location.hash = ""
-            window.localStorage.setItem("token", token)
+            window.localStorage.setItem("spotify_token", token)
         }
 
-        setToken(token)
+        setSpotifyToken(token)
 
     }, [])
 
+
     const logout = () => {
-        setToken("")
-        window.localStorage.removeItem("token")
+        setSpotifyToken("")
+        setTwitterToken("")
+        window.localStorage.removeItem("spotify_token")
     }
 
     const predictThisSong = async (e) => {
         e.preventDefault()
         const {data} = await axios.get("https://api.spotify.com/v1/search", {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${spotifyToken}`
             },
             // If search request, then use below, atm just a get recently played
             params: {
@@ -110,7 +114,7 @@ function App() {
     const getPlaylistId = async () => {
         const {data} = await axios.get("https://api.spotify.com/v1/me/playlists?limit=10", {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${spotifyToken}`
             },
         })
         const playlists = (data.items)
@@ -123,7 +127,8 @@ function App() {
             //recursion does not work as return time is not waited for and returns undefined
         } else {
             // setUpdatePlaylistId(reqPlaylist[0].id)
-            addTracksToPlaylist(reqPlaylist[0].id)
+            let val;
+            getTopTenTracks(reqPlaylist[0].id).then(r => val)
         }
     }
 
@@ -133,7 +138,7 @@ function App() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${spotifyToken}`
             },
             body: JSON.stringify({
                 name: `Moodify ${playlistEmotion}`,
@@ -141,40 +146,97 @@ function App() {
                 public: false
             })
         }).then(response => response.json()).then(jsonResponse => {
-            addTracksToPlaylist(jsonResponse.id)
+            let val;
+            getTopTenTracks(jsonResponse.id).then(r => val)
         });
     }
 
-    const addTracksToPlaylist = (playlistId) => {
+    const getTopTenTracks = async (playlistId) => {
         console.log("+ music function")
         console.log(playlistId)
         console.log(playlistEmotion)
+        let moodData
 
-        //TODO Get top 10 tracks for emotion
+        switch (playlistEmotion) {
+            case "Anger":
+                moodData = angerData
+                break;
+            case "Fear":
+                moodData = fearData
+                break;
+            case "Joy":
+                moodData = joyData
+                break;
+            default:
+                moodData = sadnessData
+        }
 
-        // fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         "Authorization": `Bearer ${token}`
-        //     },
-        //     body: JSON.stringify({
-        //         name: `Moodify ${playlistEmotion}`,
-        //         description: "New playlist description",
-        //         public: false
-        //     })
-        // }).then(response => response.json()).then(jsonResponse => {
-        //     addTracksToPlaylist(jsonResponse.id)
-        // });
+        const tempRecPlayed = recentTracks.slice().reverse()
+        const tempMoodDataSort = moodData.slice().reverse()
+        const tempMoodData = moodData.slice()
+
+        const TopTenVals = tempMoodDataSort.sort(function (a, b) {
+            return a - b;
+        }).slice(-10).reverse();
+
+        //Need this for not indexing song with same value (avoids duplicates)
+        const topTenIdx = TopTenVals.map(function (val) {
+            let idx = (tempMoodData).indexOf(val)
+            tempMoodData[idx] = -1
+            return idx
+        });
+
+
+        const topTenTracks = topTenIdx.map(idx => tempRecPlayed[idx])
+        const topTenIds = topTenTracks.map(track => track.track.id)
+
+        const {data} = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            headers: {
+                Authorization: `Bearer ${spotifyToken}`
+            },
+        })
+
+        const trackObjects = (data.items).map(item => item)
+        if (trackObjects.length === 0) {
+            console.log("add")
+            await addTracksToPlaylist(topTenIds, playlistId)
+        } else {
+            const trackIdsInPlaylist = trackObjects.map(item => item.track.id)
+            const tracksToAdd = topTenIds.filter(item => !trackIdsInPlaylist.includes(item))
+            console.log("add")
+            if (tracksToAdd.length !== 0) {
+                await addTracksToPlaylist(tracksToAdd, playlistId)
+            } else {
+                alert("All tracks are already in this playlist")
+            }
+        }
+    }
+
+    const addTracksToPlaylist = async (addTrackIds, playlistId) => {
+
+        //TODO make a post call to add tracks to playlist
+
+        let urlStr = ""
+        addTrackIds.map(track => urlStr += "spotify:track:" + track.toString() + ",")
+        urlStr = urlStr.slice(0, -1)
+
+        await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${urlStr}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${spotifyToken}`
+            },
+        })
+        console.log("added")
     }
 
 
     useEffect(() => {
             async function fetchAPI() {
-                if (token) {
+                if (spotifyToken) {
                     const {data} = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=50", {
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            Authorization: `Bearer ${spotifyToken}`
                         },
                     })
                     setRecentTracks(data.items)
@@ -198,7 +260,7 @@ function App() {
         }
 
         ,
-        [token]
+        [spotifyToken]
     )
 
     const renderRecentCards = () => {
@@ -217,13 +279,13 @@ function App() {
 
     const renderTopTrack = (moodData, type) => {
         //Need to do this as reverse changes the original variable
-        const tempArr = recentTracks.slice().reverse()
+        const tempRecPlayed = recentTracks.slice().reverse()
         const tempMoodData = moodData.slice().reverse()
         // tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...tempMoodData)
         const indexMaxEmotion = (moodData).indexOf(maxEmotion)
-        const topTrack = (tempArr)[indexMaxEmotion]
+        const topTrack = (tempRecPlayed)[indexMaxEmotion]
 
         if (indexMaxEmotion === -1) {
             return <div>Loading...</div>
@@ -236,11 +298,11 @@ function App() {
 
     return (
         <div className="App">
-            {token ?
+            {spotifyToken ?
                 <Navbar logout={logout}/> :
                 ""}
             <div className="grid grid-flow-col-dense gap-1 flex">
-                {token ?
+                {spotifyToken ?
                     <div>
                         <div className="bg-dark_blue">
                             {/*Renders recently played tracks in sidebar when search is pressed (tracks has loaded)*/}
@@ -252,7 +314,7 @@ function App() {
                 }
 
                 <div className="main-page col-span-12 flex h-full w-full bg-background">
-                    {token ?
+                    {spotifyToken ?
                         <div className={""}>
                             <div className={"justify-center"}>
                                 <br/>
@@ -277,7 +339,7 @@ function App() {
 
                                     <div className={"flex justify-center py-10"}>
                                         <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
-                                            <SearchBar token={token} predictSong={predictThisSong}
+                                            <SearchBar token={spotifyToken} predictSong={predictThisSong}
                                                        setSearchKey={setSearchKey}/>
                                             {searchTrackAnger.length !== 0 ?
                                                 renderSearchValues()
@@ -288,7 +350,7 @@ function App() {
                                     </div>
                                     <div className={"flex justify-center py-5"}>
                                         <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
-                                            <PlaylistButton token={token} testingFunction={updatePlaylist}
+                                            <PlaylistButton token={spotifyToken} testingFunction={updatePlaylist}
                                                             setPlaylistEmotion={setPlaylistEmotion}/>
                                         </div>
                                     </div>
@@ -304,13 +366,16 @@ function App() {
                         <div className="moodify-title flex flex-row min-h-screen justify-center items-center">
                             <div>
                                 <div
-                                    className="font-medium leading-tight text-5xl mt-0 mb-2 text-blue_purple row-span-1">
+                                    className="font-medium leading-tight text-6xl mt-0 mb-2 text-blue_purple row-span-1">
                                     Moodify
+                                    {twitterToken}
                                 </div>
                                 <br/>
-                                <br/>
                                 <div className="">
-                                    <Login/>
+                                    {!spotifyToken ? <SpotifyLogin/> : ""}
+                                    <br/>
+                                    {!twitterToken ? <TwitterLogin setTwitterToken={setTwitterToken}/> : ""}
+
                                 </div>
                             </div>
                         </div>
