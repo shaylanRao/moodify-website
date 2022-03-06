@@ -30,10 +30,7 @@ def get_predictions():
 @app.route("/postPredictSong", methods=["POST", "GET"], strict_slashes=False)
 def predict_this():
     global predict_id
-    print("TRACK_ID TO PREDICT")
     predict_id = request.json['trackid']
-    print(predict_id)
-    return "YES"
 
 
 @app.route("/getPredictSong", methods=["POST", "GET"], strict_slashes=False)

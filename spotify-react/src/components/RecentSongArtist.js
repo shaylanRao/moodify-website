@@ -13,7 +13,7 @@ function limmitName(str) {
             <ul className="relative">
                 <div className="recently-played-heading text-left px-3 py-5">Recently Played</div>
                 {props.tracks.map(track => (
-                    <li className="recently-played-card" key={track.track.id} title={track.track.name}>
+                    <li className="recently-played-card" title={track.track.name}>
                         <a className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
                            href={track.track.external_urls.spotify} target="_blank" data-mdb-ripple="true"
                            data-mdb-ripple-color="dark" rel="noreferrer">

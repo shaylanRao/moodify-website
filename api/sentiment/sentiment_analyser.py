@@ -16,10 +16,6 @@ tone_analyzer = ToneAnalyzerV3(
 tone_analyzer.set_service_url(SERVICE_URL)
 
 
-def calc(x, y):
-    return x + y
-
-
 def sentence_analyser(item):
     if not item:
         return None
@@ -37,7 +33,7 @@ def sentence_analyser(item):
 
 def get_text_senti(text):
     label_df = pd.DataFrame(columns=COLUMN_HEADINGS)
-    # if parameter us empty
+    # if parameter is empty
     if text == "":
         return None
     # Analyse the text (all sentences)
@@ -65,7 +61,7 @@ def get_text_senti(text):
             return label_df
         # No tone identified
         except IndexError:
-            return "Gibberish"
+            return None
 
 
 def get_lyr_senti(lyrics):

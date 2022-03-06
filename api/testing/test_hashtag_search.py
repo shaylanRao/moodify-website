@@ -1,5 +1,4 @@
 import unittest
-import tweepy
 
 from twitter_data.hashtag_search import get_trackid_from_urls, get_user_s_tweets, clean_text
 
@@ -59,6 +58,9 @@ class TestHashtagSearch(unittest.TestCase):
         erroneous_data = self
         self.assertIsNotNone(clean_text(erroneous_data))
         self.assertEqual(clean_text(erroneous_data), "")
+
+    def test_name(self):
+        pass
 
 
 if __name__ == '__main__':

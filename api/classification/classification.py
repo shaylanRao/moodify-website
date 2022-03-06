@@ -1,21 +1,20 @@
 import math
-import seaborn as sns
+
 import numpy as np
 import pandas as pd
-from IPython.core.display import display
+import seaborn as sns
 from matplotlib import pyplot as plt
-from sklearn.ensemble import BaggingRegressor, GradientBoostingRegressor
+from sklearn.decomposition import PCA
+from sklearn.ensemble import BaggingRegressor
+from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge
 from sklearn.metrics import confusion_matrix, classification_report, mean_squared_error, r2_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC, SVR
+from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeRegressor
 
-from spotipy_section.graphPlaylist import get_all_music_features, ALL_FEATURE_LABELS, view_scatter_graph, \
-    get_song_list_ids
-from sklearn.decomposition import PCA
-from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge
+from spotipy_section.graphPlaylist import get_all_music_features
 
 
 class LinLogReg:
@@ -36,20 +35,6 @@ class LinLogReg:
     scalar = None
     pca_model = None
     predict_playlist_data = None
-
-    # General PCA
-    # def standardizer(df):
-    #     x = df.loc[:, ALL_FEATURE_LABELS].values
-    #     x = StandardScaler().fit_transform(x)
-    #     return x
-    #
-    #
-    # def princomp(data, target):
-    #     pca = PCA(n_components=2)
-    #     principal_components = pca.fit_transform(data)
-    #     principal_df = pd.DataFrame(data=principal_components, columns=['pc1', 'pc2'])
-    #     final_df = pd.concat([principal_df, target], axis=1)
-    #     return final_df
 
     # --- formatting training data and test data for modeling ---
     def prep_data(self):
@@ -141,22 +126,6 @@ class LinLogReg:
         ridge_reg.fit(self.train_data, self.train_lbl)
         return ridge_reg
 
-    # def classify(user_df):
-    #     # Gets the list of tracks from the user
-    #     recent_track_list = user_df['track_id'].tolist()
-    #
-    #     # Gets the all the musical features of each song
-    #     track_features = get_all_music_features(recent_track_list)
-    #
-    #     # standardizes the data
-    #     std_data = standardizer(track_features)
-    #     target = user_df[['joy', 'sadness']]
-    #
-    #     # does PCA on the standardized data
-    #     pc_data = princomp(std_data, target)
-    #
-    #     # Graph data
-    #     view_scatter_graph(pc_data)
 
     # --- Testing different classification methods ---
     def log_reg_classifier(self):
@@ -352,7 +321,7 @@ class DecisionTree(KNeighborRegressor):
         # print(dec_tree.score(self.test_data, self.test_lbl))
 
         # if self.EMOTION == "joy":
-            # sns.distplot(test_preds)
+        # sns.distplot(test_preds)
         best_params = self.grid_search(DecisionTreeRegressor(), parameters)
         # print(best_params)
         tuned_dec_tree = DecisionTreeRegressor(max_depth=best_params['max_depth'],

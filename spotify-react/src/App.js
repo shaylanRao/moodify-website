@@ -280,7 +280,8 @@ function App() {
     const renderTopTrack = (moodData, type) => {
         //Need to do this as reverse changes the original variable
         const tempRecPlayed = recentTracks.slice().reverse()
-        const tempMoodData = moodData.slice().reverse()
+        const tempMoodData = moodData.slice()
+        console.log(tempMoodData)
         // tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...tempMoodData)
@@ -337,7 +338,7 @@ function App() {
                                         </div>
                                     </div>
 
-                                    <div className={"flex justify-center py-10"}>
+                                    <div className={"flex justify-around py-10"}>
                                         <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
                                             <SearchBar token={spotifyToken} predictSong={predictThisSong}
                                                        setSearchKey={setSearchKey}/>
@@ -347,11 +348,13 @@ function App() {
                                                 ""
                                             }
                                         </div>
-                                    </div>
-                                    <div className={"flex justify-center py-5"}>
-                                        <div className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-3/6"}>
-                                            <PlaylistButton token={spotifyToken} testingFunction={updatePlaylist}
-                                                            setPlaylistEmotion={setPlaylistEmotion}/>
+
+                                        <div className={"flex justify-center py-5"}>
+                                            <div
+                                                className={"k-p-lg rounded-lg shadow-lg border border-blue_purple w-auto"}>
+                                                <PlaylistButton token={spotifyToken} testingFunction={updatePlaylist}
+                                                                setPlaylistEmotion={setPlaylistEmotion}/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

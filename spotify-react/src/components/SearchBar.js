@@ -5,8 +5,8 @@ export default function SearchBar(props) {
     return (
         <div className="searchbar">
             {props.token ?
-                <div className={""}>
-                    <h5 className={"text-2xl text-indigo-400 "}>Enter a song to get predicted mood</h5>
+                <div className={"p"}>
+                    <h5 className={"text-2xl text-indigo-400 pt-2 pb-5"}>Enter a song to get predicted mood</h5>
                     <form onSubmit={props.predictSong}>
                         <input
                             className="shadow appearance-none border rounded-l-lg w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl"

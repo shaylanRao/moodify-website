@@ -2,9 +2,8 @@ import re
 from datetime import timedelta
 from string import punctuation
 
-import tweepy
-
 import pandas as pd
+import tweepy
 # from IPython.core.display import display
 from numpy import int64
 
@@ -36,7 +35,7 @@ MAX_SONG_TWEETS = 50
 NUM_BEFORE_TWEETS = 3
 S_TWEET_MIN_NUM = 6
 
-FILE_NAME = 'twitter_data/s_tweets_trial.csv'
+FILE_NAME = 'twitter_data/user_s_tweet_data.csv'
 CHOSEN_USER = ""
 
 # Gets recent tweets which include spotify links,  .items(n) -> how many different users will be searched
@@ -286,7 +285,7 @@ def classify_data():
     data_to_graph = (data_to_graph[data_to_graph['anger'].notna()])
     # Removes rows which show no emotion
     data_to_graph = data_to_graph.drop(data_to_graph[(data_to_graph.anger == 0) & (data_to_graph.fear == 0) & (
-                data_to_graph.joy == 0) & (data_to_graph.sadness == 0)].index)
+            data_to_graph.joy == 0) & (data_to_graph.sadness == 0)].index)
     # Gets the user with the most records
     mode_user_name = data_to_graph['user_name'].value_counts().idxmax()
     # Forms array of same (mode) user data
@@ -357,7 +356,7 @@ def get_max_index(max_list):
 
 # Loads the data
 def load_data():
-    # read_s_tweet_file("data/s_tweets_trial.csv")
+    # read_s_tweet_file("data/user_s_tweet_data.csv")
     read_s_tweet_file(FILE_NAME)
 
 
@@ -388,4 +387,3 @@ def _main_():
 def predict_searched_song(track_id):
     global predictor
     return predictor.predict_this_song(track_id)
-
