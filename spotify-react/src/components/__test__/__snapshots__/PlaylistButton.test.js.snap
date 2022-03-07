@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="playlist-button"
+  data-testid="playlist-button"
+>
+  <div
+    className=""
+  >
+    <h5
+      className="text-2xl text-indigo-400 pt-3 pb-8"
+    >
+      Click to make a playlist
+    </h5>
+    <form>
+      <select
+        className="shadow appearance-none border rounded-l-lg w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl bg-transparent"
+        data-testid="select-menu"
+        id="emotion-playlist"
+        name="emotion"
+        onClick={[Function]}
+      >
+        <option
+          className=""
+          disabled={true}
+        >
+          Choose an Emotion
+        </option>
+        <option
+          className=""
+          data-testid="option"
+          value="Anger"
+        >
+          Anger
+        </option>
+        <option
+          className=""
+          data-testid="option"
+          value="Fear"
+        >
+          Fear
+        </option>
+        <option
+          className=""
+          data-testid="option"
+          value="Joy"
+        >
+          Joy
+        </option>
+        <option
+          className=""
+          data-testid="option"
+          value="Sadness"
+        >
+          Sadness
+        </option>
+      </select>
+      <button
+        className="shadow bg-indigo-500 border rounded-r-lg hover:bg-indigo-700 focus:shadow-outline leading-tight focus:outline-none text-white py-2 px-3 text-xl"
+        type="submit"
+      >
+        Make
+      </button>
+    </form>
+  </div>
+</div>
+`;

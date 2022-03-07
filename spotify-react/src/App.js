@@ -378,7 +378,6 @@ function App() {
                                     {!spotifyToken ? <SpotifyLogin/> : ""}
                                     <br/>
                                     {!twitterToken ? <TwitterLogin setTwitterToken={setTwitterToken}/> : ""}
-
                                 </div>
                             </div>
                         </div>

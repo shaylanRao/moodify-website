@@ -1,0 +1,1429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex"
+  data-testid="sidebar"
+>
+  <ul
+    className="relative"
+  >
+    <div
+      className="recently-played-heading text-left px-3 py-5"
+    >
+      Recently Played
+    </div>
+    <li
+      className="recently-played-card"
+      title="Fairy Fountain"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1yvqnZc7RjuPyvvfblg9sv"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2734b3e70056565ec7760d4f702"
+        />
+        <span
+          className="text-left"
+        >
+          Fairy Fountain
+          <br />
+          - 
+          Amy Turk
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Tears in My Eyes"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1zXkcuo4DXpys0IdfpAjgj"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2731fd1e0793cefca646a43fe23"
+        />
+        <span
+          className="text-left"
+        >
+          Tears in My Eyes
+          <br />
+          - 
+          Cécile Corbel
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Parfum d'étoiles"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1LBtQ5Ce1Oo3UHdfMEQ72n"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2732a98379b6053e71d97449af8"
+        />
+        <span
+          className="text-left"
+        >
+          Parfum d'étoiles
+          <br />
+          - 
+          Ichiko Aoba
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Blissful Death"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/6DPewI8QTuYcl2E5OW2d3k"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273ed95475b3dc851763cd858a8"
+        />
+        <span
+          className="text-left"
+        >
+          Blissful Death
+          <br />
+          - 
+          Keiichi Okabe
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Heartbeat"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/4rtS1H5ksiVFaAtak2Jdmi"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27362c1f3370811c52ae2d26d24"
+        />
+        <span
+          className="text-left"
+        >
+          Heartbeat
+          <br />
+          - 
+          Joe Hisaishi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="The Golden Hour"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/500UbifF9XkKd2HgqmsnKu"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273e3ae5eb8bfd883b8a728503d"
+        />
+        <span
+          className="text-left"
+        >
+          The Golden Hour
+          <br />
+          - 
+          Louie Zong
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Dearly Beloved"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/6kmcqAVdWNZxO9QvFXi6JT"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273f5c1e6594439c3f2ec4c6f0d"
+        />
+        <span
+          className="text-left"
+        >
+          Dearly Beloved
+          <br />
+          - 
+          Federico Dubbini
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="The Princess Mononoke (From The Princess Mononoke Original Soundtrack)"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3VlqVvXo5v1cNbaeHXB1L2"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273ae4b1117efd0bdc00fd187fb"
+        />
+        <span
+          className="text-left"
+        >
+          The Princess Mononoke (From The Pri...
+          <br />
+          - 
+          Nuvo Orchestra 누보 오케스트라
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Confessions in the Moonlight"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/7rukP7ysF4bSb0z8bQwswp"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2732ce58f168cc97eb7277098c2"
+        />
+        <span
+          className="text-left"
+        >
+          Confessions in the Moonlight
+          <br />
+          - 
+          SEATTLEMUSIC
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Porco e Bella"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/7w5JOMMpaCILXEnUGshGQ3"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273b9ae009459e7cc8a13452d7e"
+        />
+        <span
+          className="text-left"
+        >
+          Porco e Bella
+          <br />
+          - 
+          Joe Hisaishi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="heart beat"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1UrxcNtSGbbktDxrMXCgT6"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273598142e7eef56d543ec8f922"
+        />
+        <span
+          className="text-left"
+        >
+          heart beat
+          <br />
+          - 
+          Kensuke Ushio
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Nocturne No. 2 in E-Flat Major, Op. 9 No. 2"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1VNvsvEsUpuUCbHpVop1vo"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27355c82855070525581e2c6fee"
+        />
+        <span
+          className="text-left"
+        >
+          Nocturne No. 2 in E-Flat Major, Op....
+          <br />
+          - 
+          Frédéric Chopin
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="My Funny Valentine"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/4TPkrqagDitKJZ8pm8bHaq"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273d01602ab6adcaf1bfa2498b4"
+        />
+        <span
+          className="text-left"
+        >
+          My Funny Valentine
+          <br />
+          - 
+          福居良
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Life of a Tanuki"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/6U4BQjSv0ijFfOlkUpRP8h"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2734dda83b1c5f842ca363e87a2"
+        />
+        <span
+          className="text-left"
+        >
+          Life of a Tanuki
+          <br />
+          - 
+          Hasso Gakudan
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="In the Rain"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/54tyZ4LKFV0vQZIseBV0jA"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27362c1f3370811c52ae2d26d24"
+        />
+        <span
+          className="text-left"
+        >
+          In the Rain
+          <br />
+          - 
+          Joe Hisaishi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Gymnopédie No. 1"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/33XkL2vXUzAvJqWhQt8ywI"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fa4c1e42c743496df818cd13"
+        />
+        <span
+          className="text-left"
+        >
+          Gymnopédie No. 1
+          <br />
+          - 
+          Rousseau
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Clair de Lune from Suite bergamasque C.Debussy"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3qLAmz2gLKS9b6Naq6Od17"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27319dba5508fec9fe4bbe5bdcf"
+        />
+        <span
+          className="text-left"
+        >
+          Clair de Lune from Suite bergamasqu...
+          <br />
+          - 
+          Kaede Akamatsu
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Nocturnes, Op. 55: No. 1 in F Minor"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/01CaZ0poW9YoMUOLkb8EHQ"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27326b4106d7f1ed39dcfb52763"
+        />
+        <span
+          className="text-left"
+        >
+          Nocturnes, Op. 55: No. 1 in F Minor
+          <br />
+          - 
+          Frédéric Chopin
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Ghost Choir"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/5d5vbFsYB7EebhVgafqvKS"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273a1d673be571e3f8a123775f8"
+        />
+        <span
+          className="text-left"
+        >
+          Ghost Choir
+          <br />
+          - 
+          Louie Zong
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="素敵滅法"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/5ASxwnS9Y1EwxBsA9qmOV8"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27307b73502046411485d068ee3"
+        />
+        <span
+          className="text-left"
+        >
+          素敵滅法
+          <br />
+          - 
+          物語シリーズ
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="BEASTARS -classical-"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/5O6sxBYPjv4XJYZh7qPW69"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27346ed204259e151d8ee4b8472"
+        />
+        <span
+          className="text-left"
+        >
+          BEASTARS -classical-
+          <br />
+          - 
+          神前 暁
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Theme Variation Abe-kun"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1FcB7mygKKDEEZF1h4Jf81"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fda59b9def4055642220404d"
+        />
+        <span
+          className="text-left"
+        >
+          Theme Variation Abe-kun
+          <br />
+          - 
+          Katsu Hoshi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Awake"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/35p6mssMRYhqo1hFO0o6T9"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273b351fafcb334009c3216a039"
+        />
+        <span
+          className="text-left"
+        >
+          Awake
+          <br />
+          - 
+          Lena Raine
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Fallen Down (From \\"UNDERTALE\\") [For Piano Solo]"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1Quuvq8tjjoGjYan1QnakF"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273592b41144c1441f7400d4109"
+        />
+        <span
+          className="text-left"
+        >
+          Fallen Down (From "UNDERTALE") [For...
+          <br />
+          - 
+          daigoro789
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="A Town with an Ocean View (From \\"Kiki's Delivery Service\\") [Piano Version]"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3jPbNiuZjy1pOkall2fBqf"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273a504034d1a7fb1e2d2483c9f"
+        />
+        <span
+          className="text-left"
+        >
+          A Town with an Ocean View (From "Ki...
+          <br />
+          - 
+          Streaming Music Studios
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Fairy Fountain"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3uhGWxwYdkwzI9vHITtaza"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2732bb6f8c7b085f5020bc79951"
+        />
+        <span
+          className="text-left"
+        >
+          Fairy Fountain
+          <br />
+          - 
+          Super Guitar Bros
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="at our parting"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/2KdoH2m2qlDSfohLIrEKSO"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273136a8ed571891d091ed4715b"
+        />
+        <span
+          className="text-left"
+        >
+          at our parting
+          <br />
+          - 
+          梶浦 由記
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Talking with Cats"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1ZvKmovZw3Qu5izfGwrW96"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2736a8834a3768ea9f2fa489b4c"
+        />
+        <span
+          className="text-left"
+        >
+          Talking with Cats
+          <br />
+          - 
+          Yuji Nomi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Gymnopédie No. 2"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/5SBERonheeqbIhNqPTctU6"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fa24c97b4c8aaf5ccdcccf08"
+        />
+        <span
+          className="text-left"
+        >
+          Gymnopédie No. 2
+          <br />
+          - 
+          Erik Satie
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="想い"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1J9Whfvl6TyeMYgyocx5LW"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2731c949a3e091fdab07870b291"
+        />
+        <span
+          className="text-left"
+        >
+          想い
+          <br />
+          - 
+          Taku Iwasaki
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="New Home (Slowed)"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/6h6runZeeczWEuEW2pFvYW"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273e74e9e3b8b1d6be3b0c44052"
+        />
+        <span
+          className="text-left"
+        >
+          New Home (Slowed)
+          <br />
+          - 
+          Austin Farwell
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Memory"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/708AblfH21HU5gOFBWAQHx"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273e90a54d6e31d9ff3f1d566fa"
+        />
+        <span
+          className="text-left"
+        >
+          Memory
+          <br />
+          - 
+          SEATBELTS
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Carnival of the Animals: The Swan"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3U8Fx7zNTQrctytkj6Gqgd"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2730f554ebde761482faecb143a"
+        />
+        <span
+          className="text-left"
+        >
+          Carnival of the Animals: The Swan
+          <br />
+          - 
+          Camille Saint-Saëns
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Sho's Lament - Instrumental Version 2"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3ekjCkiJPOQmXzgowOQ9ng"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2731fd1e0793cefca646a43fe23"
+        />
+        <span
+          className="text-left"
+        >
+          Sho's Lament - Instrumental Version...
+          <br />
+          - 
+          Cécile Corbel
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Significance"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1Qa2k4UzzF1X7QVTViJpdG"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273ed95475b3dc851763cd858a8"
+        />
+        <span
+          className="text-left"
+        >
+          Significance
+          <br />
+          - 
+          Keiichi Okabe
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Video Games"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/0fBSs3fRoh1yJcne77fdu9"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273ebc8cfac8b586bc475b04918"
+        />
+        <span
+          className="text-left"
+        >
+          Video Games
+          <br />
+          - 
+          Lana Del Rey
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="End of the Summer"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3qlWyv2wrWHPNfDVbxXh4s"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fb4aac6e97e78983ac5f6280"
+        />
+        <span
+          className="text-left"
+        >
+          End of the Summer
+          <br />
+          - 
+          Toshifumi Hinata
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Gymnopédie No. 1"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/5NGtFXVpXSvwunEIGeviY3"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fa24c97b4c8aaf5ccdcccf08"
+        />
+        <span
+          className="text-left"
+        >
+          Gymnopédie No. 1
+          <br />
+          - 
+          Erik Satie
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="A Huge Tree in the Tsukamori Forest (From \\"My Neighbor Totoro\\") [Piano Version]"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/7C9HH93AO6dTCWVXkBu0qn"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27337b2888783dc78330dd13e0a"
+        />
+        <span
+          className="text-left"
+        >
+          A Huge Tree in the Tsukamori Forest...
+          <br />
+          - 
+          Streaming Music Studios
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Mia & Sebastian’s Theme"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1Vk4yRsz0iBzDiZEoFMQyv"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2730bdf4dd39843ad48c5b66bc4"
+        />
+        <span
+          className="text-left"
+        >
+          Mia & Sebastian’s Theme
+          <br />
+          - 
+          Justin Hurwitz
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Imperial"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/6hd1EIB3Cmh4QKQFXfOc7R"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273d3679a15911f4444f8a6efdc"
+        />
+        <span
+          className="text-left"
+        >
+          Imperial
+          <br />
+          - 
+          j^p^n
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Prélude in E minor, Op. 28, No. 4"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1Xf4sNtMKc1xiUhuIPAUg2"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27334ff9e62ad26a736cab0bf09"
+        />
+        <span
+          className="text-left"
+        >
+          Prélude in E minor, Op. 28, No. 4
+          <br />
+          - 
+          Frédéric Chopin
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Menuet"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/0NxCQL5OFodinhM1GO5dxi"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fb4aac6e97e78983ac5f6280"
+        />
+        <span
+          className="text-left"
+        >
+          Menuet
+          <br />
+          - 
+          Toshifumi Hinata
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Satie / Orch. Ducros: Gymnopédie No. 1"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3JdD9wqvohYMjK6BmEHtTP"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2734fc04a4cbdc924b27561460d"
+        />
+        <span
+          className="text-left"
+        >
+          Satie / Orch. Ducros: Gymnopédie No...
+          <br />
+          - 
+          Erik Satie
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Vivaldi Variation (Arr. for Piano from Concerto for Strings in G Minor, RV 156)"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3Dgmyz32dxvtxvUTPS0CUI"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273286ad27505307c3d93ac6ab1"
+        />
+        <span
+          className="text-left"
+        >
+          Vivaldi Variation (Arr. for Piano f...
+          <br />
+          - 
+          Antonio Vivaldi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Rei-Opus Ⅳ (EMA13_B)"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/1Eti9INbw1fSV5KhodWp62"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273144268cf4bfbe9bd628b0f14"
+        />
+        <span
+          className="text-left"
+        >
+          Rei-Opus Ⅳ (EMA13_B)
+          <br />
+          - 
+          Shiro Sagisu
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="A Letter From Prison"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3e7aCXFfpVncLO8IzvhRlb"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b27367e8171ff4d3062116772af6"
+        />
+        <span
+          className="text-left"
+        >
+          A Letter From Prison
+          <br />
+          - 
+          Dario Marianelli
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Theme - From \\"Eternal Sunshine of the Spotless Mind\\"/Score"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/4AQwwsz0ztRx4YKNb1GdBB"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b2735eb9cb335bcd4b42afdb87e5"
+        />
+        <span
+          className="text-left"
+        >
+          Theme - From "Eternal Sunshine of t...
+          <br />
+          - 
+          Jon Brion
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="One Summer Day"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3gFQOMoUwlR6aUZj81gCzu"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fd220b07117400ccbc85ed96"
+        />
+        <span
+          className="text-left"
+        >
+          One Summer Day
+          <br />
+          - 
+          Joe Hisaishi
+           
+        </span>
+      </a>
+    </li>
+    <li
+      className="recently-played-card"
+      title="Once Upon a Dream - From \\"Maleficent\\" / Pop Version"
+    >
+      <a
+        className="flex items-center text-sm py-7 px-6 h-12 text-gray-400 text-ellipsis whitespace-nowrap rounded hover:text-gray-100 hover:bg-indigo-500 transition duration-300 ease-in-out"
+        data-mdb-ripple="true"
+        data-mdb-ripple-color="dark"
+        href="https://open.spotify.com/track/3liiZRlJxa8GeLUgWMoIeu"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Orange"
+          className="w-10 h-10 mr-3"
+          src="https://i.scdn.co/image/ab67616d0000b273fa644aeb3f0226b4f81f45e6"
+        />
+        <span
+          className="text-left"
+        >
+          Once Upon a Dream - From "Maleficen...
+          <br />
+          - 
+          Lana Del Rey
+           
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`matches snapshot 2`] = `
+<div
+  className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex"
+  data-testid="sidebar"
+>
+  <div>
+    No Recent Tracks 
+  </div>
+</div>
+`;

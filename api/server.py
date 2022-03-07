@@ -31,6 +31,7 @@ def get_predictions():
 def predict_this():
     global predict_id
     predict_id = request.json['trackid']
+    return "Added"
 
 
 @app.route("/getPredictSong", methods=["POST", "GET"], strict_slashes=False)

@@ -10,8 +10,7 @@
     "@progress/kendo-react-indicators": "^5.0.1",
     "@progress/kendo-react-labels": "^5.0.1",
     "@progress/kendo-theme-material": "^5.2.0",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "hammerjs": "^2.0.8",
@@ -45,7 +44,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.3",
     "autoprefixer": "^9.0.0",
+    "jest-dom": "^4.0.0",
+    "react-test-renderer": "^17.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
   }
 }

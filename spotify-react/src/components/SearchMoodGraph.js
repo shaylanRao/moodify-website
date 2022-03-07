@@ -1,7 +1,5 @@
 import {
     Chart,
-    ChartCategoryAxis,
-    ChartCategoryAxisItem,
     ChartSeries,
     ChartSeriesItem,
     ChartValueAxis,

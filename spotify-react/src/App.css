@@ -87,3 +87,8 @@
 .twitter-login-button {
     background-color: #1DA1F2;
 }
+
+.button-style {
+    border: 1px solid gray;
+    padding: 10px;
+}

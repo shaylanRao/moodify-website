@@ -7,7 +7,7 @@ import {
     ChartSeriesItem,
     ChartTitle,
     ChartValueAxis,
-    ChartValueAxisItem, ChartXAxis,
+    ChartValueAxisItem,
 } from "@progress/kendo-react-charts";
 
 import * as React from "react";
