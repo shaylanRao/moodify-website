@@ -27,6 +27,13 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID,
 
 
 def get_artist_song_name(trackid):
+    """
+    The function that receives a track id and returns the song name and artist.
+
+    :param str trackid: The chosen track id.
+    :return: The track name, The artist name.
+
+    """
     track = sp.track(trackid)
     song_name = track['name']
     artist_name = track['artists'][0]['name']
@@ -34,6 +41,14 @@ def get_artist_song_name(trackid):
 
 
 def get_attribute(all_features, select_feature):
+    """
+    The function that returns the chosen attributes given all of the song features.
+
+    :param all_features: All the features from a given track.
+    :param select_feature: The selected feature to obtain.
+    :return: A list of the selected feature.
+
+    """
     return [all_features[i][select_feature] for i in range(len(all_features))]
 
 
@@ -51,8 +66,18 @@ def get_song_list_ids(pl_id):
     return song_list_ids
 
 
-# Returns attributes x, y, z given playlist id
 def get_w_to_z(song_list_ids, varw, varx, vary, varz):
+    """
+    The function that gets the attributes for 4 dimensions for a list of songs.
+
+    :param song_list_ids: A list of track ids
+    :param str varw: a desired feature.
+    :param str varx: a desired feature.
+    :param str vary: a desired feature.
+    :param str varz: a desired feature.
+    :return: 4 lists of features.
+    :rtype list
+    """
     # Get features for each song in list
     features = sp.audio_features(song_list_ids)
     features = list(filter(None, features))
@@ -66,6 +91,17 @@ def get_w_to_z(song_list_ids, varw, varx, vary, varz):
 
 
 def get_x_y_z(song_list_ids, varx, vary, varz):
+    """
+    The function that gets the attributes for 3 dimensions for a list of songs.
+
+    :param song_list_ids:
+    :param str varx: a desired feature.
+    :param str vary: a desired feature.
+    :param str varz: a desired feature.
+    :return: 3 lists of features.
+    :rtype: list
+
+    """
     print(song_list_ids)
     # Get features for each song in list
     features = sp.audio_features(song_list_ids)
@@ -78,7 +114,13 @@ def get_x_y_z(song_list_ids, varx, vary, varz):
 
 
 def get_all_music_features(song_list_ids):
+    """
+    The function that returns all music features given a list of track ids.
 
+    :param song_list_ids: List of track ids.
+    :return: A dataframe containing all features for corresponding tracks
+
+    """
     features = sp.audio_features(song_list_ids)
     df = pd.DataFrame()
     for feature_label in ALL_FEATURE_LABELS:
@@ -91,6 +133,23 @@ def get_all_music_features(song_list_ids):
 
 
 def show_graph_sample(varx, vary, varz, x1, x2, x3, y1, y2, y3, z1, z2, z3):
+    """
+    The method that produces a 3D graph of 3 features.
+
+    :param str varx: A variable/feature.
+    :param str vary: A variable/feature.
+    :param str varz: A variable/feature.
+    :param list x1: Corresponding values to the variable x.
+    :param list x2: Corresponding values to the variable x.
+    :param list x3: Corresponding values to the variable x.
+    :param list y1: Corresponding values to the variable y.
+    :param list y2: Corresponding values to the variable y.
+    :param list y3: Corresponding values to the variable y.
+    :param list z1: Corresponding values to the variable z.
+    :param list z2: Corresponding values to the variable z.
+    :param list z3: Corresponding values to the variable z.
+
+    """
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
 
@@ -106,8 +165,14 @@ def show_graph_sample(varx, vary, varz, x1, x2, x3, y1, y2, y3, z1, z2, z3):
 
 
 def graph_one_playlist(song_list_graph_one, label):
+    """
+    The method that produces a graph for a list of tracks for 4 dimensions and can label points.
+
+    :param song_list_graph_one: a track list of songs to graph.
+    :param label: (Optional) labels for corresponding points.
+
+    """
     print("GRAPH:")
-    display(song_list_graph_one)
     vw = 'acousticness'
     vx = 'valence'
     vy = 'energy'
@@ -141,6 +206,13 @@ def graph_one_playlist(song_list_graph_one, label):
 
 
 def get_recently_played():
+    """
+    The function that gets recently played tracks from the user.
+
+    :return: A list of tracks.
+    :rtype: list
+
+    """
     results = sp.current_user_recently_played(limit=50)
     track_ids = []
 
@@ -158,8 +230,13 @@ def get_recently_played():
 
 # -----------------------------------------------------------------------------
 
-# TODO add error detection (track_id)
 def label_heatmap(song_label_df):
+    """
+    The method that produces a 3D interpolation graph with labeled points for each 4 emotions.
+
+    :param song_label_df: A dataframe (from hashtag_search.py) containing users, sentiment and track ids.
+
+    """
     # Example user is the most common user
     example_user_name = str(song_label_df.user_name.mode()[0])
     # Reduces the df to only the chosen user
@@ -209,24 +286,16 @@ def label_heatmap(song_label_df):
     # test_graph(song_label_df)
 
 
-def plotly_interpolation(label_data):
-    import plotly.io as pio
-    pio.renderers.default = "browser"
-    import plotly.graph_objects as go
-    # Read data from a csv
-    # z_data = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv')
-    z = np.array(label_data)
-    # z = z_data.values
-    sh_0, sh_1 = z.shape
-    x, y = np.linspace(0, 1, sh_0), np.linspace(0, 1, sh_1)
-    fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
-    fig.update_layout(title='Mt Bruno Elevation', autosize=False,
-                      width=500, height=500,
-                      margin=dict(l=65, r=50, b=65, t=90))
-    fig.show()
-
-
 def interpolation_grid(x, y, attr, label_name, title):
+    """
+    The function that generates a graph using a grid of points (variable plane)
+
+    :param list x: A music feature list of values.
+    :param list y: A music feature list of values.
+    :param list attr: A sentiment attribute.
+    :param str label_name: The name of the sentiment.
+    :param str title: The title for the graph (Recommend using the sentiment label).
+    """
     grid_x, grid_y, grid_z = get_grids(x, y, attr)
 
     fig = plt.figure()
@@ -248,6 +317,17 @@ def interpolation_grid(x, y, attr, label_name, title):
 
 
 def interpolation_grid_2(x, y, attr, label_names):
+    """
+    REDUNDANT FUNCTION!
+    The function that would have produced two grids together for different emotions.
+
+    :param list x: A music feature list of values.
+    :param list y: A music feature list of values.
+    :param list attr: Sentiment attributes.
+    :param str label_name: The name of the sentiment.
+    :param str title: The title for the graph (Recommend using the sentiment label).
+
+    """
     grid_x, grid_y, grid_z = get_grids(x, y, attr[0])
     print(grid_x)
     fig = plt.figure()
@@ -281,6 +361,15 @@ def interpolation_grid_2(x, y, attr, label_names):
 
 
 def get_grids(x, y, label):
+    """
+    The function that returns a grid given x and y dimensions.
+
+    :param list x: A list of values for a dimension.
+    :param list y: A list of values for a dimension.
+    :param label: A list of a dimension to the corresponding x, y point.
+    :return: An array for grids x, y and z.
+
+    """
     data = list(zip(x, y, label))
     x, y, label = zip(*data)
     grid_x, grid_y = np.mgrid[0:1:100j, 0:1:100j]
@@ -290,6 +379,16 @@ def get_grids(x, y, label):
 
 
 def view_scatter_graph(df):
+    """
+    Function used for self-testing!
+    The method the plots a 4 dimensional graph for joy and sadness from a dataframe.
+
+    :param df: A dataframe (from hashtag_search.py) containing users, sentiment and track ids.
+
+    """
+
+    # Hardcoded printing first two variables after PCA
+    # Function used for self-testing
     vx = 'pc1'
     vy = 'pc2'
     vz1 = 'joy'
@@ -313,6 +412,10 @@ def view_scatter_graph(df):
 
 
 def main():
+    """
+    The driver function of this file.
+
+    """
     # w2, x2, y2, z2 = get_x_y_z(get_song_list_ids('78FHjijA1gBLuVx4qmcHq6'), vw, vx, vy, vz)
     # w3, x3, y3, z3 = get_x_y_z(get_song_list_ids('3aBeWOxyVcFupF8sKMm2k7'), vw, vx, vy, vz)
     # w3, x3, y3, z3 = get_x_y_z(recentlyPlayed.get_recently_played())

@@ -41,9 +41,19 @@ CHOSEN_USER = ""
 # Gets recent tweets which include spotify links,  .items(n) -> how many different users will be searched
 recent_s_tweets = tweepy.Cursor(api.search_tweets, q=CHOICE, result_type='recent').items(NUM_USERS)
 
+# Saved for reuse - helpful for web application
+predictor = Prediction
 
-# Gets the Spotify song id
+
 def get_trackid_from_urls(urls):
+    """
+    The function that returns the trackid from a spotify track URL.
+
+    :param urls: A spotify track URL.
+    :return: The corresponding track id.
+    :rtype: str
+
+    """
     try:
         url = urls[0]['expanded_url']
     except (IndexError, KeyError):
@@ -58,12 +68,23 @@ def get_trackid_from_urls(urls):
 
 # Adds to pre-defined list of users, the usernames from tweets
 def init_user_list():
+    """
+    The method that creates that populates a list with user screen names.
+
+    """
     for tweet in recent_s_tweets:
         user_screen_name_list.append(tweet.user.screen_name)
 
 
 # Gets only spotify tweets from a user - passed as string
 def get_user_s_tweets(screen_name):
+    """
+    The function that returns filtered/queried tweets from a user.
+
+    :param str screen_name: The screen name of a user.
+    :return: Queried tweets from the user (based on most recent tweets)
+    
+    """
     query = '"open.spotify.com/track" lang:en exclude:replies -filter:retweets' + " from:" + screen_name
     # Gets specified number of tweets that include songs in the tweets
     spotify_tweets = tweepy.Cursor(api.search_tweets, q=query, result_type='recent').items(MAX_SONG_TWEETS)
@@ -72,6 +93,14 @@ def get_user_s_tweets(screen_name):
 
 # Cleans text data - passed as string
 def clean_text(message):
+    """
+    The function that cleans the tweet texts.
+    
+    :param message: The tweet message.
+    :return: The cleaned tweet message. (can be processed for sentiment and saved in dataframe).
+    :rtype: str
+    
+    """
     try:
         # Removes space, flattens text
         tweet_text = message.replace('\n', ' ')
@@ -89,36 +118,61 @@ def clean_text(message):
 
 
 # Gets tweet message and song url (if there is one)
-def get_s_tweet_text_and_url(tweet):
+def get_s_tweet_text_and_track_id(tweet):
+    """
+    The function that obtains the track URL and the clean message from a tweet.
+    
+    :param tweet: The tweet object.
+    :return: tweet text, track id.
+    :rtype: str
+    
+    """
     tweet_text = clean_text(tweet.text)
     urls = tweet.entities["urls"]
     song_url = get_trackid_from_urls(urls)
     return tweet_text, song_url
 
 
-# Gets the size of how many tweets are in the search
-def get_size_of_search(tweet_search_items):
-    counter = 0
-    for _ in tweet_search_items:
-        counter += 1
-
-    return counter
-
-
 # Function for counting number of elements, solves bug - unable to do for each for some object types
 def count_iterable(i):
+    """
+    The function that counts how many items are in an object.
+    Designed to overcome bug of not being able to iterate some objects.
+
+    :param i: object to count elements in.
+    :return: number of items in object.
+    :rtype: integer
+
+    """
     return sum(1 for _ in i)
 
 
 # Puts passed data into dataframe
 def tabulate_s_tweets(user_name, text, track_id, tweet_id, time):
+    """
+    The method that generates a dataframe for user data.
+
+    :param user_name: The users screen name.
+    :param text: The text from the tweet.
+    :param track_id: The track id from the tweet.
+    :param tweet_id: The tweet id.
+    :param time: The time of the tweet.
+
+    """
     df = {'user_name': user_name, 'text': text, 'track_id': track_id, 'tweet_id': tweet_id, 'time': time}
     global all_s_tweets
     all_s_tweets = all_s_tweets.append(df, ignore_index=True)
 
 
 # Creates a song list for each user from the dataframe (all_s_tweets)
+# TODO check return on this function
 def get_users_song_lists():
+    """
+    The function that returns a list of track lists for each user from the dataframe 'all_s_tweets'.
+
+    :return: a list of track lists per user.
+    :rtype: list[list[str]]
+    """
     all_user_lists = []
     # iterates through each user within s_tweets
     for user in all_s_tweets['user_name'].unique():
@@ -136,6 +190,12 @@ def get_users_song_lists():
 
 # Adds the sentiment label to each song in the dataframe
 def add_song_label(messages):
+    """
+    The method that adds the sentiment for a tweet.
+
+    :param messages: Messages from current tweet and past tweets.
+
+    """
     global label_df
 
     label = get_text_senti(messages)
@@ -148,6 +208,10 @@ def add_song_label(messages):
 
 # Gets the averaged sentiment of each song tweet from previous tweets
 def get_before_s_tweets():
+    """
+    The method that gets previous tweets per tweet in 'all_s_tweets' and assigns the sentiment label per track.
+
+    """
     # example_user = all_s_tweets.iloc[0]
 
     # For each user in the dataframe
@@ -196,6 +260,10 @@ def get_before_s_tweets():
 
 # Remove any blacklisted accounts
 def rem_blacklist():
+    """
+    The method that removes blacklisted accounts from the 'user_screen_name_list'.
+
+    """
     for user_name in BLACKLIST:
         try:
             user_screen_name_list.remove(user_name)
@@ -205,6 +273,13 @@ def rem_blacklist():
 
 # Creates the dataframe of songs and other data for either a chosen user or if none, a selection of random users
 def create_s_tweet_df(chosen_user):
+    """
+    The method that creates a dataframe of spotify tweets.
+    Can be for just one user if specified, otherwise uses a group of random users (based on recent activity).
+
+    :param chosen_user: (Optional) Only create for a specific user by screen name.
+
+    """
     global all_s_tweets
     global CHOSEN_USER
     if chosen_user:
@@ -223,18 +298,30 @@ def create_s_tweet_df(chosen_user):
 
 # Strange error where the call to get_user_s_tweets cannot be stored
 def get_s_tweet(user):
+    """
+    The method that tabulate spotify tweets for a random collective or a given user.
+
+    :param user: (Optional) A specific user screen name
+
+    """
     global all_s_tweets
     if count_iterable(get_user_s_tweets(user)) > S_TWEET_MIN_NUM:
         # For each tweet, extract each component and collate it in a dataframe
         for tweet in get_user_s_tweets(user):
-            text, song_id = get_s_tweet_text_and_url(tweet)
-            if song_id != "":
-                tabulate_s_tweets(user_name=user, text=text, track_id=song_id, tweet_id=tweet.id,
+            text, track_id = get_s_tweet_text_and_track_id(tweet)
+            if track_id != "":
+                tabulate_s_tweets(user_name=user, text=text, track_id=track_id, tweet_id=tweet.id,
                                   time=tweet.created_at)
 
 
 # Reads in a file to the main all_s_tweets dataframe
 def read_s_tweet_file(file_name):
+    """
+    The method that reads in a saved CSV file ('user_s_tweet_data.csv') into all_s_tweet.
+
+    :param file_name: A specified file to read into
+
+    """
     global all_s_tweets
     dtypes = {'user_name': 'str', 'text': 'str', 'track_id': 'str', 'tweet_id': 'int64', 'time': 'str'}
     parse_date = ['time']
@@ -245,6 +332,14 @@ def read_s_tweet_file(file_name):
 
 # Gets the sentiment analysis on each song
 def get_lyric_sentiment(df):
+    """
+    The function that gets and appends lyric sentiment
+
+    :param df: The dataframe containing track ids (from 'data_to_graph' ideally but any dataframe)
+
+    :return: The dataframe with lyrical sentiment appended
+
+    """
     lyric_df = pd.DataFrame()
     for row_index, df_row in df.iterrows():
         trackid = df_row['track_id']
@@ -263,8 +358,12 @@ def get_lyric_sentiment(df):
     return df_concat
 
 
-# Produces a 3D interpolation graph for each emotion using 'energy' and 'valence' as axis
+#
 def get_heatmap():
+    """
+    The function that produces a 3D interpolation graph for each emotion using 'energy' and 'valence' as axis
+
+    """
     data_to_graph = all_s_tweets
     data_to_graph = (data_to_graph[data_to_graph['anger'].notna()])
     mode_user_name = data_to_graph['user_name'].value_counts().idxmax()
@@ -274,11 +373,16 @@ def get_heatmap():
     label_heatmap(data_to_graph)
 
 
-predictor = Prediction
-
-
 # Classifies the data and uses a predicting model
 def classify_data():
+    """
+    The function that formats data and generates the classification models and returns the predicted values for
+    recently listened to songs. (The return value is designed as the first application of classification is for
+    recently played music on web application).
+
+    :return: The predicted sentiment values for each emotion for each recently listened to song.
+
+    """
     global predictor
     data_to_graph = all_s_tweets
     # If a row has all values N/A, anger would contain N/A, this code removes any rows with N/A for all values
@@ -324,7 +428,13 @@ def classify_data():
 
 
 # Gets the longest song song list from all users
-def get_max_songlist():
+def get_max_song_list():
+    """
+    The function that return the largest song list from all user track lists.
+
+    :return: Largest track list.
+    :rtype: list
+    """
     # gets all users song lists
     all_song_lists = get_users_song_lists()
     # Gets the largest list of songs
@@ -333,6 +443,12 @@ def get_max_songlist():
 
 # Trawls twitter for data on either a specific user or a random selection
 def trawl_data(screen_name):
+    """
+    The driver method for mining new data from twitter.
+
+    :param screen_name: (Optional) Only mine data for a specific user.
+
+    """
     global all_s_tweets
     global label_df
     # Creates df of tweet data
@@ -346,22 +462,22 @@ def trawl_data(screen_name):
     # get_heatmap()
 
 
-# Get the most common user from all song records
-def get_max_index(max_list):
-    # gets all users song lists
-    all_song_lists = get_users_song_lists()
-    # Gets the largest list of songs
-    return all_song_lists.index(max_list)
-
-
 # Loads the data
 def load_data():
+    """
+    The driver method for loading data from a csv file.
+
+    """
     # read_s_tweet_file("data/user_s_tweet_data.csv")
     read_s_tweet_file(FILE_NAME)
 
 
-# Driver function
 def _main_():
+    """
+    The driver function that runs necessary functions for web application to operate
+
+    :return: The sentiment prediction for recently played song.
+    """
     print("run")
     global all_s_tweets
     global label_df
@@ -375,7 +491,7 @@ def _main_():
     read_s_tweet_file(FILE_NAME)
 
     # Gets the largest list of songs
-    # max_list = get_max_songlist()
+    # max_list = get_max_song_list()
 
     # Graphs the largest song list
     # graph_one_playlist(max_list)
@@ -385,5 +501,12 @@ def _main_():
 
 
 def predict_searched_song(track_id):
+    """
+    The function that gets the sentiment prediction for a single track.
+
+    :param str track_id: The track id of the desired track.
+    :return: The sentiment for each emotion of the track.
+
+    """
     global predictor
     return predictor.predict_this_song(track_id)

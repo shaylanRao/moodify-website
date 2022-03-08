@@ -17,6 +17,14 @@ tone_analyzer.set_service_url(SERVICE_URL)
 
 
 def sentence_analyser(item):
+    """
+    The function that creates a record from sentiment values.
+
+    :param item: The item gained from analysing a tone in text.
+    :return: A record containing sentiment.
+    :rtype: dict
+
+    """
     if not item:
         return None
     tone_id_list = []
@@ -27,11 +35,18 @@ def sentence_analyser(item):
         tone_value.append(aspect['score'])
 
     # makes a single record to add to dataframe
-    df2 = dict(zip(tone_id_list, tone_value))
-    return df2
+    record = dict(zip(tone_id_list, tone_value))
+    return record
 
 
 def get_text_senti(text):
+    """
+    The function that generates a dataframe containing sentiment for a given block of text.
+    Designed for tweet messages
+
+    :param str text: The text to be analysed.
+    :return: A dataframe.
+    """
     label_df = pd.DataFrame(columns=COLUMN_HEADINGS)
     # if parameter is empty
     if text == "":
@@ -45,8 +60,8 @@ def get_text_senti(text):
         analysis = response['sentences_tone']
         # print("MULTIPLE SENTENCES")
         for item in analysis:
-            df2 = sentence_analyser(item['tones'])
-            label_df = label_df.append(df2, ignore_index=True)  # append tone values to total dataframe
+            record = sentence_analyser(item['tones'])
+            label_df = label_df.append(record, ignore_index=True)  # append tone values to total dataframe
 
             # return dataframe from multiple sentences
         label_df = label_df.fillna(0).mean()
@@ -65,8 +80,16 @@ def get_text_senti(text):
 
 
 def get_lyr_senti(lyrics):
+    """
+    The function that generates a dataframe for lyric sentiment.
+    Designed for lyrics of a song.
+
+    :param lyrics: String of lyric text.
+    :return: A dataframe.
+
+    """
     label_df = pd.DataFrame(columns=COLUMN_HEADINGS)
-    # if parameter us empty
+    # if parameter is empty
     if lyrics == "":
         return None
     # Analyse the text (all sentences)

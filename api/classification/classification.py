@@ -29,10 +29,10 @@ class LinLogReg:
 
     def __init__(self, data, emotion):
         """
-        :param data: The user dataframe containing labels and attributes.
-        :param emotion: The emotion defined for the model to train to label.
-
         The constructor for LinLogReg class.
+
+        :param data: The user dataframe containing labels and attributes.
+        :param str emotion: The emotion defined for the model to train to label.
 
         """
         self.user_data = data
@@ -83,11 +83,12 @@ class LinLogReg:
         # and anger to tentative as labels
         self.set_train_test_labels(shuffled_data.iloc[:, 2:9])
 
-    def set_train_test_data(self, music_data: pd.Dataframe):
+    def set_train_test_data(self, music_data):
         """
         The method that sets the train and test data for music attributes.
 
         :param music_data: Dataframe containing only music attributes and labels.
+
         """
         self.split_pos = math.ceil((len(music_data)) * self.TRAIN_DATA_PROPORTION)
         self.train_data = music_data.iloc[:self.split_pos, :]
@@ -98,6 +99,7 @@ class LinLogReg:
         The method that sets the train and test data for music labels.
 
         :param labels: The labels to be set.
+
         """
         labels = labels[self.EMOTION]
         self.train_lbl = labels[:self.split_pos]
@@ -109,6 +111,8 @@ class LinLogReg:
 
         :param label: The list of labels.
         :return: A list of labels of either 1 or 0.
+        :rtype: list
+
         """
         log_label = [int(x >= self.LOG_THRESHOLD) for x in label.tolist()]
         return log_label
@@ -117,6 +121,7 @@ class LinLogReg:
     def standardizer(self):
         """
         The method that standardises the both train and test data values by train set.
+
         """
         # define scalar
         scalar = StandardScaler()
@@ -133,6 +138,7 @@ class LinLogReg:
     def prin_comp(self):
         """
         The method that applies PCA to the train and test data.
+
         """
         # Keeps the relevant number of components to ensure 95% of original data is preserved
         pca = PCA(self.DATA_PRESERVED)
@@ -153,6 +159,7 @@ class LinLogReg:
         The driver function that models the prepared data for logistic regression.
 
         :return: The logistic regression model.
+
         """
         log_reg_train_lbl = self.get_log_data_labels(self.train_lbl)
         logistic_reg = LogisticRegression(solver='lbfgs', fit_intercept=False)
@@ -165,6 +172,7 @@ class LinLogReg:
         The driver function  that models the prepared data for linear regression.
 
         :return: The linear regression model.
+
         """
         linear_reg = LinearRegression(positive=True, fit_intercept=False)
         linear_reg.fit(self.train_data, self.train_lbl)
@@ -176,6 +184,7 @@ class LinLogReg:
         The driver function that models the prepared data for ridge regression.
 
         :return: The ridge regression model.
+
         """
         ridge_reg = Ridge(positive=True, fit_intercept=False)
         ridge_reg.fit(self.train_data, self.train_lbl)
@@ -273,7 +282,11 @@ class LinLogReg:
 
 class KernelSVC(LinLogReg):
     """
-    This is a class that computes Kernel Support Vector Classification (SVC).
+    This is a class that computes Kernel Support Vector Classification (SVC), inherited from LinLogReg
+
+    Attributes:
+        data: The user dataframe containing labels and attributes.
+        emotion: The emotion defined for the model to train to label.
 
     """
     def drive(self):
@@ -291,8 +304,9 @@ class KernelSVC(LinLogReg):
         """
         The function that applies the chosen kernel function.
 
-        :param k_type: The type of kernel ('poly', 'gaus', 'sigmoid').
+        :param str k_type: The type of kernel ('poly', 'gaus', 'sigmoid').
         :return: The predicted values for test data.
+
         """
         if k_type == "poly":
             sv_classifier = SVC(kernel='poly', degree=8)
@@ -325,14 +339,28 @@ class KernelSVC(LinLogReg):
         print(classification_report(self.get_log_data_labels(self.test_lbl), y_pred))
 
 
-# TODO
+
 class KernelSVR(LinLogReg):
     def drive(self):
         pass
 
 
 class KNeighborRegressor(LinLogReg):
+    """
+    A class that computes K-Nearest Neighbor Regressor, inherited from LinLogReg.
+
+    Attributes:
+        data: The user dataframe containing labels and attributes.
+        emotion: The emotion defined for the model to train to label.
+
+    """
     def drive(self):
+        """
+        The driver function that prepares the data and trains the model.
+
+        :return: The model, the scalar transformation and pca fit (to be applied to new data).
+
+        """
         print("KNR ", self.EMOTION, ":")
         self.prep_data()
         self.standardizer()
@@ -346,6 +374,15 @@ class KNeighborRegressor(LinLogReg):
         # self.correlation_graph()
 
     def knr_bagging(self, k_num, leaf_sz, weight):
+        """
+        The function that takes the (optimal) parameters and returns a tuned model for KNR.
+
+        :param int k_num: The number of clusters.
+        :param int leaf_sz: Leaf size, maximum number of points from root node.
+        :param str weight: How the points are weighted
+        :return: The tuned model.
+
+        """
         # Initialises KNR using optimal parameters
         tuned_knr = KNeighborsRegressor(n_neighbors=k_num, leaf_size=leaf_sz, weights=weight)
         print("k: ", k_num, " leaf: ", leaf_sz, " weights: ", weight)
@@ -361,7 +398,7 @@ class KNeighborRegressor(LinLogReg):
         return bagging_model
         # self.knr_boosting()
 
-    # Boosting regressor instead of KNR and Bagging
+    # Boosting regressor instead of KNR and Bagging -- failed as overrides rpinciple of training a model
     # def knr_boosting(self):
     #     print("Boost model:")
     #     boost_model = GradientBoostingRegressor(random_state=0)
@@ -373,6 +410,12 @@ class KNeighborRegressor(LinLogReg):
 
     # Testing to see correlation for energy and loudness and prediction on colorbar
     def plot_model(self, test_preds):
+        """
+        The method that plots a heatmap graph of energy against loudness colour-coded by prediction.
+
+        :param test_preds: ndarray of predictions.
+
+        """
         cmap = sns.cubehelix_palette(as_cmap=True)
         f, ax = plt.subplots()
         points = ax.scatter(self.test_data['energy'], self.test_data['loudness'], c=test_preds, s=50, cmap=cmap)
@@ -381,6 +424,15 @@ class KNeighborRegressor(LinLogReg):
 
     # Tuning
     def grid_search(self, model, params):
+        """
+        The function that executes a grid search to find optimal parameters for a model given train data.
+
+        :param model: An empty instance of a chosen model.
+        :param dict params: A dictionary of valid parameters and ranges of values for each for the model.
+        :return: The optimal parameters.
+        :rtype: dict
+
+        """
         # Define range to test for parameters
         parameters = params
         gridsearch = GridSearchCV(model, parameters)
@@ -391,7 +443,21 @@ class KNeighborRegressor(LinLogReg):
 
 
 class DecisionTree(KNeighborRegressor):
+    """
+    A class that computes a decision tree regressor model, inherited from KNeighborRegressor.
+
+    Attributes:
+        data: The user dataframe containing labels and attributes.
+        emotion: The emotion defined for the model to train to label.
+
+    """
     def drive(self):
+        """
+        The driver function that prepares the data and trains the model.
+
+        :return: The model, the scalar transformation and pca fit (to be applied to new data).
+
+        """
         print("Dec Tree Reg ", self.EMOTION, ":")
         self.prep_data()
         self.standardizer()
@@ -401,6 +467,11 @@ class DecisionTree(KNeighborRegressor):
         # self.correlation_graph()
 
     def decision_tree_regressor(self):
+        """
+        The function that computes the optimal parameters and trains a decision tree.
+
+        :return: The decision tree model.
+        """
         parameters = {"splitter": ["best", "random"],
                       "max_depth": [3, 5, 7, 9],
                       "min_samples_leaf": [1, 2, 3, 4, 5],
