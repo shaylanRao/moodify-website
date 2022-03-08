@@ -2,6 +2,11 @@ import tweepy
 
 
 def get_tweepy_api():
+    """
+    The function that authenticates the use of the tweepy API
+
+    :return: The api access as an object
+    """
     api_key = 'UufJ607HmfImJ0lP8aRq5mfsE'
     api_secret_key = 'dsERJyMw0x5B5bbjo7XlcMhUWuMdd5BI884NlZA747Kg5wMUzv'
     access_token = '1450235258784337923-LPGZuv1f6UVZ61c1huzFz66OjIV0yL'
