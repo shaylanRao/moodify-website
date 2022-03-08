@@ -7,8 +7,6 @@ export default function Sidebar(props) {
         }
         return str
     }
-    console.log("tracks json")
-    console.log(props.tracks)
 
     return (
         <div className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex" data-testid="sidebar">

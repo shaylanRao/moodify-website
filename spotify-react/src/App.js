@@ -281,7 +281,6 @@ function App() {
         //Need to do this as reverse changes the original variable
         const tempRecPlayed = recentTracks.slice().reverse()
         const tempMoodData = moodData.slice()
-        console.log(tempMoodData)
         // tempArr.slice().reverse()
 
         const maxEmotion = Math.max(...tempMoodData)

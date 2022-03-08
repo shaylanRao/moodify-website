@@ -18,7 +18,23 @@ from spotipy_section.graphPlaylist import get_all_music_features
 
 
 class LinLogReg:
+    """
+    This is a class that computes Linear and Logistic regression.
+
+    Attributes:
+        data: The user dataframe containing labels and attributes.
+        emotion: The emotion defined for the model to train to label.
+
+    """
+
     def __init__(self, data, emotion):
+        """
+        :param data: The user dataframe containing labels and attributes.
+        :param emotion: The emotion defined for the model to train to label.
+
+        The constructor for LinLogReg class.
+
+        """
         self.user_data = data
         self.EMOTION = emotion
 
@@ -36,9 +52,11 @@ class LinLogReg:
     pca_model = None
     predict_playlist_data = None
 
-    # --- formatting training data and test data for modeling ---
     def prep_data(self):
-        # get_playlist_data()
+        """
+        The method to format the training data and test data for modeling.
+        """
+
         # Gets the list of tracks from the user
         track_list = self.user_data['track_id'].tolist()
 
@@ -65,22 +83,41 @@ class LinLogReg:
         # and anger to tentative as labels
         self.set_train_test_labels(shuffled_data.iloc[:, 2:9])
 
-    def set_train_test_data(self, music_data):
+    def set_train_test_data(self, music_data: pd.Dataframe):
+        """
+        The method that sets the train and test data for music attributes.
+
+        :param music_data: Dataframe containing only music attributes and labels.
+        """
         self.split_pos = math.ceil((len(music_data)) * self.TRAIN_DATA_PROPORTION)
         self.train_data = music_data.iloc[:self.split_pos, :]
         self.test_data = music_data.iloc[self.split_pos:, :]
 
     def set_train_test_labels(self, labels):
+        """
+        The method that sets the train and test data for music labels.
+
+        :param labels: The labels to be set.
+        """
         labels = labels[self.EMOTION]
         self.train_lbl = labels[:self.split_pos]
         self.test_lbl = labels[self.split_pos:]
 
     def get_log_data_labels(self, label):
+        """
+        The function to classify labels into either 1 or 0.
+
+        :param label: The list of labels.
+        :return: A list of labels of either 1 or 0.
+        """
         log_label = [int(x >= self.LOG_THRESHOLD) for x in label.tolist()]
         return log_label
 
     # --- PCA (for use on ML techniques) ---
     def standardizer(self):
+        """
+        The method that standardises the both train and test data values by train set.
+        """
         # define scalar
         scalar = StandardScaler()
 
@@ -94,6 +131,9 @@ class LinLogReg:
 
     # PCA function
     def prin_comp(self):
+        """
+        The method that applies PCA to the train and test data.
+        """
         # Keeps the relevant number of components to ensure 95% of original data is preserved
         pca = PCA(self.DATA_PRESERVED)
         pca.fit(self.train_data)
@@ -109,6 +149,11 @@ class LinLogReg:
     # --- Different models ---
     # Logistic regression modeling
     def log_reg_func(self):
+        """
+        The driver function that models the prepared data for logistic regression.
+
+        :return: The logistic regression model.
+        """
         log_reg_train_lbl = self.get_log_data_labels(self.train_lbl)
         logistic_reg = LogisticRegression(solver='lbfgs', fit_intercept=False)
         logistic_reg.fit(self.train_data, log_reg_train_lbl)
@@ -116,19 +161,32 @@ class LinLogReg:
 
     # Linear regression modeling
     def lin_reg_func(self):
+        """
+        The driver function  that models the prepared data for linear regression.
+
+        :return: The linear regression model.
+        """
         linear_reg = LinearRegression(positive=True, fit_intercept=False)
         linear_reg.fit(self.train_data, self.train_lbl)
         return linear_reg
 
     # Ridge
     def ridge_reg_func(self):
+        """
+        The driver function that models the prepared data for ridge regression.
+
+        :return: The ridge regression model.
+        """
         ridge_reg = Ridge(positive=True, fit_intercept=False)
         ridge_reg.fit(self.train_data, self.train_lbl)
         return ridge_reg
 
-
     # --- Testing different classification methods ---
     def log_reg_classifier(self):
+        """
+        The method that prints and compares logistic regression model prediction to actual data.
+
+        """
         # applying logistic regression
         log_reg_model = self.log_reg_func()
         # predict all values
@@ -140,6 +198,10 @@ class LinLogReg:
         print("")
 
     def lin_reg_classifier(self):
+        """
+        The method that prints and compares linear regression model prediction to actual data.
+
+        """
         lin_reg_model = self.lin_reg_func()
         # predicting all values
         print("Linear Regression:")
@@ -150,6 +212,10 @@ class LinLogReg:
         print("")
 
     def ridge_reg_classifier(self):
+        """
+        The method that prints and compares ridge regression model prediction to actual data.
+
+        """
         ridge_reg_model = self.ridge_reg_func()
         # predict all values
         print("Ridge Regression:")
@@ -161,6 +227,10 @@ class LinLogReg:
 
     # --- Runs classification, choosing appropriate method
     def classify(self):
+        """
+        The driver method that prepares the data and executes model training functions.
+
+        """
         # Gets formatted data for training and testing
         self.prep_data()
         # standardizes the data
@@ -174,6 +244,10 @@ class LinLogReg:
 
     # Evaluating metrics for models using predictions
     def evaluate_model(self, test_preds):
+        """
+        The method that prints evaluation metrics for models.
+
+        """
         # Calculates mean squared error on test data
         mse = mean_squared_error(self.test_lbl, test_preds)
         rmse = math.sqrt(mse)
@@ -198,7 +272,15 @@ class LinLogReg:
 
 
 class KernelSVC(LinLogReg):
+    """
+    This is a class that computes Kernel Support Vector Classification (SVC).
+
+    """
     def drive(self):
+        """
+        The driver method for preparing and training the model.
+
+        """
         self.prep_data()
         self.standardizer()
         self.prin_comp()
@@ -206,6 +288,12 @@ class KernelSVC(LinLogReg):
         self.eval(y_pred)
 
     def kernel(self, k_type):
+        """
+        The function that applies the chosen kernel function.
+
+        :param k_type: The type of kernel ('poly', 'gaus', 'sigmoid').
+        :return: The predicted values for test data.
+        """
         if k_type == "poly":
             sv_classifier = SVC(kernel='poly', degree=8)
         elif k_type == "gaus":
@@ -224,6 +312,12 @@ class KernelSVC(LinLogReg):
         # print(y_pred)
 
     def eval(self, y_pred):
+        """
+        The method that prints the confusion matrix and classification report on the model.
+
+        :param y_pred: the predicted values for the test data.
+
+        """
         print("Values")
         print(self.get_log_data_labels(self.test_lbl))
         print(y_pred)

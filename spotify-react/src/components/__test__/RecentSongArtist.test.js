@@ -30,7 +30,7 @@ it("matches snapshot", () => {
     expect(tree).toMatchSnapshot();
 })
 
-it("matches snapshot", () => {
+it("matches empty snapshot", () => {
     const tree = renderer.create(<Sidebar />).toJSON();
     expect(tree).toMatchSnapshot();
 })

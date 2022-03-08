@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`matches empty snapshot 1`] = `
+<div
+  className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex"
+  data-testid="sidebar"
+>
+  <div>
+    No Recent Tracks 
+  </div>
+</div>
+`;
+
 exports[`matches snapshot 1`] = `
 <div
   className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex"
@@ -1414,16 +1425,5 @@ exports[`matches snapshot 1`] = `
       </a>
     </li>
   </ul>
-</div>
-`;
-
-exports[`matches snapshot 2`] = `
-<div
-  className="recently-played-sidebar w-full grow h-full shadow-md bg-white px-1 flex"
-  data-testid="sidebar"
->
-  <div>
-    No Recent Tracks 
-  </div>
 </div>
 `;
