@@ -4,7 +4,7 @@ import SearchGraph from "./SearchMoodGraph";
 export default function SearchTrackValues(props) {
 
     return (
-        <div>
+        <div data-testid="search-track-values">
             <br/>
             <h4 className="text-left px-4 font-medium text-gray-400">{props.predictSongName} - {props.predictSongArtist}</h4>
             <div className="flex">

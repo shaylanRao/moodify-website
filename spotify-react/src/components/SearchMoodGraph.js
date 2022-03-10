@@ -7,9 +7,8 @@ import {
 } from "@progress/kendo-react-charts";
 import "hammerjs";
 import {COLORS} from "../constants";
-import * as React from "react";
 import ChartTooltip from "@progress/kendo-react-charts/dist/es/components/Tooltip";
-
+import React from "react";
 
 export default function SearchGraph(props) {
 
@@ -44,7 +43,7 @@ export default function SearchGraph(props) {
     ];
 
     return (
-        <Chart pannable zoomable style={{height: 200, width: 300}}>
+        <Chart pannable zoomable style={{height: 200, width: 300}} data-testid="search-graph">
             <ChartValueAxis>
                 <ChartValueAxisItem title={{text: "Emotional Intensity"}} min={0}/>
             </ChartValueAxis>
