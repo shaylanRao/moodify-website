@@ -8,7 +8,7 @@ export default function SpotifyLogin() {
     const SCOPE = "playlist-modify-private user-read-recently-played"
 
     return (
-        <div>
+        <div data-testid="spotify-login">
             <button>
                 <a className="rounded-full spotify-login-button py-3 px-6"
                    href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
