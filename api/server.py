@@ -3,10 +3,10 @@
 
 # python -m pip install --upgrade pip    - for pycharm
 from flask import Flask, request
-from twitter_data.gain_data import _main_, predict_searched_song
+from twitter_data.gain_data import GainData
 
 app = Flask(__name__)
-
+user_data = GainData(user_screen_name="kwangyajail")
 predict_id = ""
 
 
@@ -30,7 +30,7 @@ def get_predictions():
     :rtype: dict
 
     """
-    anger, fear, joy, sadness = _main_()
+    anger, fear, joy, sadness = user_data.populate_and_classify()
     anger = [element * 100 for element in anger]
     fear = [element * 100 for element in fear]
     joy = [element * 100 for element in joy]
@@ -60,7 +60,7 @@ def get_pred():
     """
     global predict_id
     print(predict_id)
-    anger, fear, joy, sadness = predict_searched_song(predict_id)
+    anger, fear, joy, sadness = user_data.predict_searched_song(predict_id)
     anger = [element * 100 for element in anger]
     fear = [element * 100 for element in fear]
     joy = [element * 100 for element in joy]

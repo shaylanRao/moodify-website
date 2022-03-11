@@ -35,7 +35,7 @@ def sentence_analyser(item):
         tone_value.append(aspect['score'])
 
     # makes a single record to add to dataframe
-    record = dict(zip(tone_id_list, tone_value))
+    record = pd.DataFrame([tone_value], columns=tone_id_list)
     return record
 
 
@@ -61,7 +61,7 @@ def get_text_senti(text):
         # print("MULTIPLE SENTENCES")
         for item in analysis:
             record = sentence_analyser(item['tones'])
-            label_df = label_df.append(record, ignore_index=True)  # append tone values to total dataframe
+            label_df = pd.concat([label_df, record], ignore_index=True, axis=0)  # append tone values to total dataframe
 
             # return dataframe from multiple sentences
         label_df = label_df.fillna(0).mean()
@@ -71,7 +71,7 @@ def get_text_senti(text):
         # Returns the sentiment score value for the single sentence
         try:
             df = sentence_analyser(response['document_tone']['tones'])
-            label_df = label_df.append(df, ignore_index=True)
+            label_df = pd.concat([label_df, df], ignore_index=True)
             label_df = label_df.fillna(0).mean()
             return label_df
         # No tone identified
@@ -98,7 +98,7 @@ def get_lyr_senti(lyrics):
                                   ).get_result()
 
     df = sentence_analyser(response['document_tone']['tones'])
-    label_df = label_df.append(df, ignore_index=True)
+    label_df = pd.concat([label_df, df], ignore_index=True, axis=0)
     label_df = label_df.fillna(0)
     # Renames column headings
     label_df.columns = COLUMN_HEADINGS_LYRICS
