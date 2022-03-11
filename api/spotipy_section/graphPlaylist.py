@@ -234,7 +234,7 @@ def label_heatmap(song_label_df):
     """
     The method that produces a 3D interpolation graph with labeled points for each 4 emotions.
 
-    :param song_label_df: A dataframe (from hashtag_search.py) containing users, sentiment and track ids.
+    :param song_label_df: A dataframe (from gain_data.py) containing users, sentiment and track ids.
 
     """
     # Example user is the most common user
@@ -383,7 +383,7 @@ def view_scatter_graph(df):
     Function used for self-testing!
     The method the plots a 4 dimensional graph for joy and sadness from a dataframe.
 
-    :param df: A dataframe (from hashtag_search.py) containing users, sentiment and track ids.
+    :param df: A dataframe (from gain_data.py) containing users, sentiment and track ids.
 
     """
 

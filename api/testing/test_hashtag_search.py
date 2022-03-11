@@ -1,6 +1,6 @@
 import unittest
 
-from twitter_data.hashtag_search import get_trackid_from_urls, get_user_s_tweets, clean_text
+from twitter_data.gain_data import get_trackid_from_urls, get_user_s_tweets, clean_text
 
 
 class TestHashtagSearch(unittest.TestCase):

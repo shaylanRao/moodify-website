@@ -13,7 +13,7 @@ from sentiment.sentiment_analyser import get_text_senti, COLUMN_HEADINGS
 from spotipy_section.graphPlaylist import label_heatmap, get_artist_song_name
 from twitter_data import innit_tweepy
 
-api = innit_tweepy.get_tweepy_api()
+tweepy_api = innit_tweepy.get_tweepy_api()
 
 CHOICE = '"open.spotify.com/track" lang:en exclude:replies -filter:retweets'
 song_list = []
@@ -39,7 +39,7 @@ FILE_NAME = 'twitter_data/user_s_tweet_data.csv'
 CHOSEN_USER = ""
 
 # Gets recent tweets which include spotify links,  .items(n) -> how many different users will be searched
-recent_s_tweets = tweepy.Cursor(api.search_tweets, q=CHOICE, result_type='recent').items(NUM_USERS)
+recent_s_tweets = tweepy.Cursor(tweepy_api.search_tweets, q=CHOICE, result_type='recent').items(NUM_USERS)
 
 # Saved for reuse - helpful for web application
 predictor = Prediction
@@ -87,7 +87,7 @@ def get_user_s_tweets(screen_name):
     """
     query = '"open.spotify.com/track" lang:en exclude:replies -filter:retweets' + " from:" + screen_name
     # Gets specified number of tweets that include songs in the tweets
-    spotify_tweets = tweepy.Cursor(api.search_tweets, q=query, result_type='recent').items(MAX_SONG_TWEETS)
+    spotify_tweets = tweepy.Cursor(tweepy_api.search_tweets, q=query, result_type='recent').items(MAX_SONG_TWEETS)
     return spotify_tweets
 
 
@@ -235,7 +235,7 @@ def get_before_s_tweets():
             query = 'lang:en exclude:replies -filter:retweets ' + user
 
             # Gets (upto number declared) tweets from user - until: searches tweets BEFORE given date
-            before_s_tweet = tweepy.Cursor(api.search_tweets,
+            before_s_tweet = tweepy.Cursor(tweepy_api.search_tweets,
                                            q=query,
                                            result_type='recent',
                                            max_id=tweet_id,
