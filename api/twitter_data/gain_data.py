@@ -283,13 +283,16 @@ class GainData:
         """
         dtypes = {'user_name': 'str', 'text': 'str', 'track_id': 'str', 'tweet_id': 'int64', 'time': 'str'}
         parse_date = ['time']
-        new_data = pd.read_csv(self.SAVE_TEMP_DATA_FILE_NAME , index_col=0, dtype=dtypes, parse_dates=parse_date)
+        new_data = pd.read_csv(self.SAVE_TEMP_DATA_FILE_NAME, index_col=0, dtype=dtypes, parse_dates=parse_date)
         new_data["track_id"].astype(str)
-        self.all_s_tweets = pd.read_csv(self.FILE_NAME, index_col=0, dtype=dtypes, parse_dates=parse_date)
-        self.all_s_tweets["track_id"].astype(str)
+        saved_data = pd.read_csv(self.FILE_NAME, index_col=0, dtype=dtypes, parse_dates=parse_date)
+        saved_data["track_id"].astype(str)
 
         # Merge new data into existing data
-        self.all_s_tweets = pd.concat([new_data, self.all_s_tweets], axis=0)
+        self.all_s_tweets = pd.concat([new_data, saved_data], axis=0)
+
+        self.all_s_tweets = self.all_s_tweets.drop_duplicates()
+        self.all_s_tweets = self.all_s_tweets.reset_index(drop=True)
 
         # Save merged data into file to load for future
         self.all_s_tweets.to_csv(self.FILE_NAME)
