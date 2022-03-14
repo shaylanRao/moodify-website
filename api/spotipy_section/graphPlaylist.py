@@ -121,7 +121,14 @@ def get_all_music_features(song_list_ids):
     :return: A dataframe containing all features for corresponding tracks
 
     """
-    features = sp.audio_features(song_list_ids)
+    # Can only run operation on 100 tracks so need to do it in batches and append
+    features = []
+    while len(song_list_ids) != 0:
+        track_batch = song_list_ids[-99:]
+        song_list_ids = song_list_ids[:-99]
+        features.extend(sp.audio_features(track_batch))
+
+    # features = sp.audio_features(song_list_ids)
     df = pd.DataFrame()
     for feature_label in ALL_FEATURE_LABELS:
         try:
