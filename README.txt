@@ -1,2 +1,1 @@
-read me
-am I merged into the gitlab yet?
+This is the code used as a web appliction.
