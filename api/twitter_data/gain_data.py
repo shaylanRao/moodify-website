@@ -10,7 +10,7 @@ from numpy import int64
 from classification.senti_prediciton import Prediction
 from sentiment.lyric_sentiment import get_lyrics_senti
 from sentiment.sentiment_analyser import get_text_senti, COLUMN_HEADINGS
-from spotipy_section.graphPlaylist import label_heatmap, get_artist_song_name
+from spotipy_section.graphPlaylist import get_artist_song_name
 from twitter_data import innit_tweepy
 
 
@@ -124,7 +124,7 @@ class GainData:
         """
         The constructor for the EmotionModel class.
 
-        :param user_screen_name: The user data and labels required to train the model.
+        :param user_screen_name: The users screen name on twitter
         """
         self.tweet_column_names = ["user_name", "text", "track_id", "tweet_id", "time"]
 
@@ -143,10 +143,10 @@ class GainData:
         self.FILE_NAME = 'twitter_data/user_s_tweet_data.csv'
         self.SAVE_TEMP_DATA_FILE_NAME = 'twitter_data/new_trawl_user_data.csv'
 
-    # Gets only spotify tweets from a user - passed as string
+    # Gets only spotify tweets from the user - passed as string
     def get_user_s_tweets(self):
         """
-        The function that returns filtered/queried tweets from a user.
+        The function that returns filtered/queried tweets from the user.
 
         :return: Queried tweets from the user (based on most recent tweets)
 
@@ -158,31 +158,30 @@ class GainData:
         return spotify_tweets
 
     # Puts passed data into dataframe
-    def tabulate_s_tweets(self, user_name, text, track_id, tweet_id, time):
+    def tabulate_s_tweets(self, text, track_id, tweet_id, time):
         """
         The method that generates a dataframe for user data.
 
-        :param user_name: The users screen name.
         :param text: The text from the tweet.
         :param track_id: The track id from the tweet.
         :param tweet_id: The tweet id.
         :param time: The time of the tweet.
 
         """
-        df = pd.DataFrame([[user_name, text, track_id, tweet_id, time]], columns=self.tweet_column_names)
+        df = pd.DataFrame([[self.user_screen_name, text, track_id, tweet_id, time]], columns=self.tweet_column_names)
 
         self.all_s_tweets = pd.concat([self.all_s_tweets, df], ignore_index=True, axis=0)
 
     def get_user_song_list(self):
         """
-        The function that returns a list of track lists for each user from the dataframe 'all_s_tweets'.
+        The function that returns a list of tracks from the dataframe 'all_s_tweets'.
 
         :return: a list of track lists per user.
         :rtype: list[list[str]]
         """
 
         user_song_list = []
-        for row in self.all_s_tweets[self.all_s_tweets['user_name'] == self.user_screen_name].iterrows():
+        for row in self.all_s_tweets.iterrows():
             # Gets track ID from tweet
             # Checks for no track (and for when it reads data from csv - empty is stored as float
             if row[1][2] != "" and type(row[1][2]) == str:
@@ -213,55 +212,51 @@ class GainData:
         The method that gets previous tweets per tweet in 'all_s_tweets' and assigns the sentiment label per track.
 
         """
-        # example_user = all_s_tweets.iloc[0]
+        print(self.user_screen_name, ": ")
+        # For each spotify tweet that user has made
+        for s_tweet in self.all_s_tweets.iterrows():
+            messages = ""
 
-        # For each user in the dataframe
-        for user in self.all_s_tweets['user_name'].unique():
-            print(user, ": ")
-            # For each spotify tweet that user has made
-            for s_tweet in self.all_s_tweets[self.all_s_tweets['user_name'] == user].iterrows():
-                messages = ""
+            # Gets date (YYY-MM-DD) of tweet - use to limit tweets only going back 7 days - only to keep tweets
+            # within bound
+            until_date = s_tweet[1][4].date()
 
-                # Gets date (YYY-MM-DD) of tweet - use to limit tweets only going back 7 days - only to keep tweets
-                # within bound
-                until_date = s_tweet[1][4].date()
+            # Increments 1 to account for the current tweet
+            until_date += timedelta(days=1)
 
-                # Increments 1 to account for the current tweet
-                until_date += timedelta(days=1)
+            # Gets tweet_id
+            tweet_id = int64(s_tweet[1][3])
 
-                # Gets tweet_id
-                tweet_id = int64(s_tweet[1][3])
+            # Query for tweets from user
+            query = 'lang:en exclude:replies -filter:retweets ' + self.user_screen_name
 
-                # Query for tweets from user
-                query = 'lang:en exclude:replies -filter:retweets ' + user
-
-                # Gets (upto number declared) tweets from user - until: searches tweets BEFORE given date
-                before_s_tweet = tweepy.Cursor(self.tweepy_api.search_tweets,
-                                               q=query,
-                                               result_type='recent',
-                                               max_id=tweet_id,
-                                               until=until_date
-                                               ).items(self.NUM_BEFORE_TWEETS)
-                for tweet in before_s_tweet:
-                    # If the tweet is not the spotify tweet
-                    if tweet.id != tweet_id:
-                        # And does not have any other spotify song associated with it
-                        if get_trackid_from_urls(tweet.entities["urls"]) == "":
-                            messages = '\n'.join([messages, clean_text(tweet.text)])
-                        else:
-                            # Go to next tweet
-                            break
-                    else:
+            # Gets (upto number declared) tweets from user - until: searches tweets BEFORE given date
+            before_s_tweet = tweepy.Cursor(self.tweepy_api.search_tweets,
+                                           q=query,
+                                           result_type='recent',
+                                           max_id=tweet_id,
+                                           until=until_date
+                                           ).items(self.NUM_BEFORE_TWEETS)
+            for tweet in before_s_tweet:
+                # If the tweet is not the spotify tweet
+                if tweet.id != tweet_id:
+                    # And does not have any other spotify song associated with it
+                    if get_trackid_from_urls(tweet.entities["urls"]) == "":
                         messages = '\n'.join([messages, clean_text(tweet.text)])
+                    else:
+                        # Go to next tweet
+                        break
+                else:
+                    messages = '\n'.join([messages, clean_text(tweet.text)])
 
-                # Gets overall sentiment from past tweets together (rounded sentiment leading upto song)
-                #     Acts as label for song
-                self.add_song_label(messages)
+            # Gets overall sentiment from past tweets together (rounded sentiment leading upto song)
+            #     Acts as label for song
+            self.add_song_label(messages)
 
-    # Strange error where the call to get_user_s_tweets cannot be stored
+    # Strange error where the call to get_user_s_tweets cannot be stored (hence same call function twice)
     def get_s_tweet(self):
         """
-        The method that tabulate spotify tweets for a random collective or a given user.
+        The method that tabulate spotify tweets for the user.
 
         """
         if count_iterable(self.get_user_s_tweets()) > self.S_TWEET_MIN_NUM:
@@ -269,7 +264,7 @@ class GainData:
             for tweet in self.get_user_s_tweets():
                 text, track_id = get_s_tweet_text_and_track_id(tweet)
                 if track_id != "":
-                    self.tabulate_s_tweets(user_name=self.user_screen_name, text=text, track_id=track_id,
+                    self.tabulate_s_tweets(text=text, track_id=track_id,
                                            tweet_id=tweet.id,
                                            time=tweet.created_at)
         else:
@@ -297,19 +292,6 @@ class GainData:
         # Save merged data into file to load for future
         self.all_s_tweets.to_csv(self.FILE_NAME)
         self.all_s_tweets.dropna(subset=["track_id"], inplace=True)
-
-    def get_heatmap(self):
-        """
-        The function that produces a 3D interpolation graph for each emotion using 'energy' and 'valence' as axis
-
-        """
-        data_to_graph = self.all_s_tweets
-        data_to_graph = (data_to_graph[data_to_graph['anger'].notna()])
-        mode_user_name = data_to_graph['user_name'].value_counts().idxmax()
-        data_to_graph = data_to_graph.loc[data_to_graph['user_name'] == mode_user_name]
-        data_to_graph = data_to_graph.reset_index().drop(columns='index')
-        data_to_graph = data_to_graph.drop(columns=['text', 'tweet_id', 'time'])
-        label_heatmap(data_to_graph)
 
     # Classifies the data and uses a predicting model
     def classify_data(self):
@@ -343,25 +325,8 @@ class GainData:
 
         print(mode_user_name, "'s ", "Data Size: ", len(data_to_graph))
 
-        # Linear models for joy
-        # classifier = LinLogReg(data_to_graph, "joy")
-        # classifier.classify()
-
-        # SVM for joy
-        # svm_classify = KernelSVC(data_to_graph, "joy")
-        # svm_classify.predict_recent_songs()
-
-        # KNR for joy and sadness
         self.predictor = Prediction(data_to_graph)
         return self.predictor.predict_recent_songs()
-
-        # print('sadness')
-        # knr_joy = KNeighborRegressor(data_to_graph, "sadness")
-        # knr_joy.predict_recent_songs()
-
-        # print('anger')
-        # knr_joy = KNeighborRegressor(data_to_graph, "anger")
-        # knr_joy.predict_recent_songs()
 
     # Trawls twitter for data on either a specific user or a random selection
     def trawl_data(self):
@@ -377,7 +342,6 @@ class GainData:
         self.all_s_tweets = pd.concat([self.all_s_tweets, self.label_df], axis=1)
         # Saves data into csv
         self.all_s_tweets.to_csv(self.SAVE_TEMP_DATA_FILE_NAME)
-        # get_heatmap()
 
     # DRIVER FUNCTION
     def populate_and_classify(self):
@@ -396,13 +360,6 @@ class GainData:
         # Open csv and put into s_tweets
         self.read_s_tweet_file()
 
-        # Gets the largest list of songs
-        # max_list = get_max_song_list()
-
-        # Graphs the largest song list
-        # graph_one_playlist(max_list)
-
-        # get_heatmap()
         return self.classify_data()
 
     def predict_searched_song(self, track_id):

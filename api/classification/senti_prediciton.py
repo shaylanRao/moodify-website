@@ -63,7 +63,6 @@ def get_playlist_data(emotion_model, track_list):
     :return: Data to be predicted for sentiment by model.
 
     """
-    # track_list = get_song_list_ids('7d6WFDrKCCz4veVu0p7PVt')
     tracks_features = get_all_music_features(track_list)
 
     tracks_features = emotion_model.scalar.transform(tracks_features)
