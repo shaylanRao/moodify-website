@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches anger snapshot 1`] = `
+<div
+  data-testid="top-song-card"
+>
+  <div
+    className="flex items-center"
+  >
+    <div
+      className="rounded-lg shadow-lg border border-anger"
+    >
+      <div
+        className="flex justify-center p-6"
+      >
+        <img
+          alt=""
+          className="rounded-lg w-auto"
+          src="https://i.scdn.co/image/ab67616d0000b2731281642c4ec342db4214b8dc"
+          width={250}
+        />
+      </div>
+      <div
+        className="w-auto"
+      >
+        <h5
+          className="text-anger text-4xl font-medium mb-2"
+        >
+          45
+          %
+        </h5>
+        <p
+          className="text-gray-200 text-base mb-4"
+        >
+          The 
+          <span
+            className="text-anger"
+          >
+            angriest
+          </span>
+           song recently has been, 
+          <br />
+          <span
+            className="text-white font-bold italic"
+          >
+             
+            Uber X
+             
+          </span>
+          <br />
+          <span
+            className="font-light"
+          >
+            9/21/2022 - 23:21:52
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches empty snapshot 1`] = `
+<div
+  data-testid="top-song-card"
+>
+  <div>
+    Loading...
+  </div>
+</div>
+`;
+
+exports[`matches joy snapshot 1`] = `
+<div
+  data-testid="top-song-card"
+>
+  <div
+    className="flex items-center"
+  >
+    <div
+      className="rounded-lg shadow-lg border border-joy"
+    >
+      <div
+        className="flex justify-center p-6"
+      >
+        <img
+          alt=""
+          className="rounded-lg w-auto"
+          src="https://i.scdn.co/image/ab67616d0000b2731281642c4ec342db4214b8dc"
+          width={250}
+        />
+      </div>
+      <div
+        className="w-auto"
+      >
+        <h5
+          className="text-joy text-4xl font-medium mb-2"
+        >
+          45
+          %
+        </h5>
+        <p
+          className="text-gray-200 text-base mb-4"
+        >
+          The 
+          <span
+            className="text-joy"
+          >
+            happiest
+          </span>
+           song recently has been, 
+          <br />
+           
+          <span
+            className="text-white font-bold italic"
+          >
+             
+            Uber X
+             
+          </span>
+          <br />
+          <span
+            className="font-light"
+          >
+            9/21/2022 - 23:21:52
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches sadness snapshot 1`] = `
+<div
+  data-testid="top-song-card"
+>
+  <div
+    className="flex items-center"
+  >
+    <div
+      className="rounded-lg shadow-lg border border-sadness"
+    >
+      <div
+        className="flex justify-center p-6"
+      >
+        <img
+          alt=""
+          className="rounded-lg w-auto"
+          src="https://i.scdn.co/image/ab67616d0000b2731281642c4ec342db4214b8dc"
+          width={250}
+        />
+      </div>
+      <div
+        className="w-auto"
+      >
+        <h5
+          className="text-sadness text-4xl font-medium mb-2"
+        >
+          45
+          %
+        </h5>
+        <p
+          className="text-gray-200 text-base mb-4"
+        >
+          The 
+          <span
+            className="text-sadness"
+          >
+            saddest
+          </span>
+           song recently has been, 
+          <br />
+          <span
+            className="text-white font-bold italic"
+          >
+             
+            Uber X
+             
+          </span>
+          <br />
+          <span
+            className="font-light"
+          >
+            9/21/2022 - 23:21:52
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

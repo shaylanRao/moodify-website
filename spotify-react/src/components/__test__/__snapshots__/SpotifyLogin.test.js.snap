@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="spotify-login"
+>
+  <button>
+    <a
+      className="rounded-full spotify-login-button py-3 px-6"
+      href="https://accounts.spotify.com/authorize?client_id=ed61ad2eb1ac48f38a5971328cec9f01&redirect_uri=http://localhost:8080&response_type=token&scope=playlist-modify-private user-read-recently-played"
+    >
+      <i
+        className="fa fa-spotify"
+      />
+         Login to Spotify
+    </a>
+  </button>
+</div>
+`;
